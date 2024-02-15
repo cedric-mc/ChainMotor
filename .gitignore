@@ -44,3 +44,6 @@ build/
 .idea/vcs.xml
 game_data_*.txt
 mst_*.txt
+
+jdk-21.0.2/*
+!jdk-21.0.2/bin/
