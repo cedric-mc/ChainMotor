@@ -37,3 +37,10 @@ build/
 
 ### Mac OS ###
 .DS_Store
+.idea/deployment.xml
+.idea/encodings.xml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/misc.xml
+.idea/vcs.xml
+game_data_*.txt
+mst_*.txt
