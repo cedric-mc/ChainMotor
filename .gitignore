@@ -46,7 +46,7 @@ game_data_*.txt
 mst_*.txt
 
 jdk-21.0.2/*
-!jdk-21.0.2/bin/java*
-!jdk-21.0.2/bin/javac*
-!jdk-21.0.2/bin/jar*
-!jdk-21.0.2/bin/javaw*
+!jdk-21.0.2/bin/java
+!jdk-21.0.2/bin/javac
+!jdk-21.0.2/bin/jar
+!jdk-21.0.2/bin/javaw
