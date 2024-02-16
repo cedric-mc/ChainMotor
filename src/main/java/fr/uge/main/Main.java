@@ -1,14 +1,10 @@
 package fr.uge.main;
 
-import fr.uge.tree.Edge;
 import fr.uge.tree.MaximumSpanningTree;
-import fr.uge.tree.Word;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
-import java.util.Map;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -17,7 +13,7 @@ public class Main {
             System.out.println("Auteurs :\nMamadou BA\nCédric MARIYA CONSTANTINE\nAbdelrahim RICHE\nVincent SOUSA\nYacine ZEMOUCHE\n");
             return;
         }
-        // Si le nombre d'arguments est différent de 2
+        // Si le nombre d’arguments est différent de 2
         if (args.length != 2 || !args[0].startsWith("game_data_") || !args[1].startsWith("mst_")) {
             System.out.println("Utilisation : java -jar chain-motor.jar <game_data_[pseudo].txt> <mst_[pseudo].txt>");
             return;
