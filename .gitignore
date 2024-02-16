@@ -51,3 +51,4 @@ jdk-21.0.2/
 !jdk-21.0.2/bin/javac.exe
 !jdk-21.0.2/bin/javaw.exe
 !jdk-21.0.2/bin/jar.exe
+.idea/dictionaries/cedri.xml
