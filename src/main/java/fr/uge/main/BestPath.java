@@ -8,6 +8,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.*;
 
 /**
@@ -70,7 +71,9 @@ public class BestPath {
      * Méthode pour écrire le chemin le plus court dans un fichier
      */
     public void writeBestPathToFile(String file) throws IOException {
-        BufferedWriter bw = Files.newBufferedWriter(Path.of(file)); // Créer un écrivain de fichier
+        // Si le fichier n'existe pas, le créer
+        Path path = Path.of(file);
+        BufferedWriter bw = Files.newBufferedWriter(path, StandardOpenOption.CREATE, StandardOpenOption.WRITE); // Créer un écrivain de fichier
         bw.write("BestPath :"); // Écrire l'Objet
         bw.newLine(); // Sauter une ligne
         bw.write("startWord : " + maximumSpanningTree.getStartWord()); // Écrire le mot de départ
@@ -84,6 +87,7 @@ public class BestPath {
             bw.newLine();
         }
         bw.write("EOF"); // Marquer la fin du fichier
+        bw.close(); // Fermer l’écrivain de fichier
     }
 
     /**

@@ -5,6 +5,8 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.*;
 
 /**
@@ -85,7 +87,7 @@ public class MaximumSpanningTree {
      * Divise une ligne en parties et ajoute les arêtes à la liste
      */
     public static void divideParts(List<Edge> edgesMST, String line) {
-        String[] parts = line.split(",");
+        String[] parts = line.split(", distance:");
         splitWordsAndSimilarity(edgesMST, parts);
     }
 
@@ -185,7 +187,7 @@ public class MaximumSpanningTree {
         br.readLine(); // Ligne 5 : "voiture, offset: 561464"
         br.readLine(); // Ligne 6 : "bus, offset: 1715044"
         br.readLine(); // Ligne 7 : "Distance entre les mots :"
-        String[] parts = br.readLine().split(","); // Ligne 8 : "voiture_bus,0.5"
+        String[] parts = br.readLine().split(", distance:"); // Ligne 8 : "voiture_bus,0.5"
         splitWordsAndSimilarity(edges, parts); // Ajouter l’arête à la liste
         return new MaximumSpanningTree(startWord, endWord, edges, new HashSet<>()); // Retourner un nouvel objet MaximumSpanningTree
     }
@@ -227,34 +229,36 @@ public class MaximumSpanningTree {
     }
 
     /**
-     * @param fileNameJava Nom du fichier
+     * @param file Nom du fichier
      * @throws IOException Exporte l’arbre recouvrant maximal dans un fichier
      *
      * Méthode pour exporter l’arbre recouvrant maximal dans un fichier
      */
-    public void exportMaximumSpanningTreeToFile(String fileNameJava) throws IOException {
-        Path filePath = Path.of(fileNameJava); // Créer un objet Path pour le fichier
-        // Créer un objet BufferedWriter pour écrire dans le fichier
-        BufferedWriter bufferedWriter = Files.newBufferedWriter(filePath);
-        bufferedWriter.write("MaximumSpanningTree :");
-        bufferedWriter.newLine();
-        bufferedWriter.write(String.format("startWord : %s", startWord));
-        bufferedWriter.newLine();
-        bufferedWriter.write(String.format("endWord : %s", endWord));
-        bufferedWriter.newLine();
-        bufferedWriter.write("edgesMST :");
-        bufferedWriter.newLine();
-        for (Edge edge : edgesMST) { // Parcourir chaque arête de l’arbre
-            bufferedWriter.write(String.format("%s_%s,%f", edge.sourceWord().word(), edge.targetWord(), edge.similarity()));
-            bufferedWriter.newLine();
+    public void exportMaximumSpanningTreeToFile(String file) {
+        Path path = Paths.get(file); // Créer un objet Path pour le fichier
+        // Créer un objet BufferedWriter pour écrire dans le fichier avec les options de création et d’écriture
+        try (BufferedWriter bw = Files.newBufferedWriter(path, StandardOpenOption.CREATE, StandardOpenOption.WRITE)) {
+            bw.write("MaximumSpanningTree :\n");
+            bw.write("startWord : " + startWord);
+            bw.newLine();
+            bw.write("endWord : " + endWord);
+            bw.newLine();
+            bw.write("edgesMST :");
+            bw.newLine();
+            for (Edge edge : edgesMST) { // Parcourir chaque arête de l’arbre
+                bw.write(String.format("%s_%s,%.2f", edge.sourceWord().word(), edge.targetWord(), edge.similarity()));
+                bw.newLine();
+            }
+            bw.write("bannedWords :");
+            bw.newLine();
+            for (Word word : bannedWords) { // Parcourir chaque mot interdit
+                bw.write(word.word());
+                bw.newLine();
+            }
+            bw.write("EOF"); // Ajouter la fin du fichier
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        bufferedWriter.write("bannedWords :");
-        bufferedWriter.newLine();
-        for (Word word : bannedWords) { // Parcourir chaque mot interdit
-            bufferedWriter.write(word.word());
-            bufferedWriter.newLine();
-        }
-        bufferedWriter.write("EOF"); // Ajouter la fin du fichier
     }
 
     /**
