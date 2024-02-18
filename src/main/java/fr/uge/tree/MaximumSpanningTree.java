@@ -1,5 +1,7 @@
 package fr.uge.tree;
 
+import fr.uge.main.FileLine;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -64,16 +66,16 @@ public class MaximumSpanningTree {
         BufferedReader br = Files.newBufferedReader(filePath);
         String line;
         br.readLine(); // Ligne 1 : "MaximumSpanningTree :"
-        String startWord = br.readLine().split(":")[1].trim(); // Ligne 2 : "startWord : word1"
-        String endWord = br.readLine().split(":")[1].trim(); // Ligne 3 : "endWord : word2"
+        String startWord = br.readLine().split(FileLine.FIELDS_SEPARATOR.line)[1].trim(); // Ligne 2 : "startWord : word1"
+        String endWord = br.readLine().split(FileLine.FIELDS_SEPARATOR.line)[1].trim(); // Ligne 3 : "endWord : word2"
 
         br.readLine(); // Ligne 4 : "edgesMST :"
 
-        while (!Objects.equals(line = br.readLine(), "bannedWords")) {
+        while (!Objects.equals(line = br.readLine(), FileLine.BANNED_WORDS.line)) {
             divideParts(edgesMST, line);
         }
 
-        while (!Objects.equals(line = br.readLine(), "EOF")) {
+        while (!Objects.equals(line = br.readLine(), FileLine.EOF.line)) {
             bannedWords.add(new Word(line));
         }
         br.close();
@@ -87,7 +89,7 @@ public class MaximumSpanningTree {
      * Divise une ligne en parties et ajoute les arêtes à la liste
      */
     public static void divideParts(List<Edge> edgesMST, String line) {
-        String[] parts = line.split(", distance:");
+        String[] parts = line.split(FileLine.SIMILARITY_C_FILE_SEPARATOR.line);
         splitWordsAndSimilarity(edgesMST, parts);
     }
 
@@ -113,7 +115,7 @@ public class MaximumSpanningTree {
     }
 
     /**
-     * @return Set<Word> Mots interdits
+     * @return Set<Word> Ensemble de mots interdits
      */
     public Set<Word> getBannedWords() {
         return bannedWords;
@@ -153,7 +155,6 @@ public class MaximumSpanningTree {
         for (Word word : bannedWords) {
             sb.append(word).append(System.lineSeparator());
         }
-        sb.append("EOF"); // Ajouter la fin du fichier
         return sb.toString();
     }
 
@@ -162,7 +163,7 @@ public class MaximumSpanningTree {
      * @param parts Parties de la ligne
      */
     private static void splitWordsAndSimilarity(List<Edge> edges, String[] parts) {
-        String[] words = parts[0].split("_"); // Diviser les mots de l’arête
+        String[] words = parts[0].split(FileLine.WORDS_SEPARATOR_OUTPUT.line); // Diviser les mots de l’arête
         // Créer les mots source et cible
         Word sourceWord = new Word(words[0]);
         Word targetWord = new Word(words[1]);
@@ -181,14 +182,15 @@ public class MaximumSpanningTree {
         Path readerPath = Path.of(fileC); // Créer un objet Path pour le fichier
         BufferedReader br = Files.newBufferedReader(readerPath); // Créer un objet BufferedReader pour lire le fichier
         br.readLine(); // Ligne 1 : "Mots de départ :"
-        Word startWord = new Word(br.readLine().split(",")[0].trim()); // Ligne 2 : "voiture,561464"
-        Word endWord = new Word(br.readLine().split(",")[0].trim()); // Ligne 3 : "bus,1715044"
+        Word startWord = new Word(br.readLine().split(FileLine.SIMILARITY_SEPARATOR.line)[0].trim()); // Ligne 2 : "voiture,561464"
+        Word endWord = new Word(br.readLine().split(FileLine.SIMILARITY_SEPARATOR.line)[0].trim()); // Ligne 3 : "bus,1715044"
         br.readLine(); // Ligne 4 : "Liste des mots :"
         br.readLine(); // Ligne 5 : "voiture, offset: 561464"
         br.readLine(); // Ligne 6 : "bus, offset: 1715044"
         br.readLine(); // Ligne 7 : "Distance entre les mots :"
-        String[] parts = br.readLine().split(", distance:"); // Ligne 8 : "voiture_bus,0.5"
+        String[] parts = br.readLine().split(FileLine.SIMILARITY_C_FILE_SEPARATOR.line); // Ligne 8 : "voiture_bus,0.5"
         splitWordsAndSimilarity(edges, parts); // Ajouter l’arête à la liste
+        br.close(); // Fermer le fichier
         return new MaximumSpanningTree(startWord, endWord, edges, new HashSet<>()); // Retourner un nouvel objet MaximumSpanningTree
     }
 
@@ -209,9 +211,9 @@ public class MaximumSpanningTree {
         br.readLine(); // Ligne 3 : "bus,1715044"
         br.readLine(); // Ligne 4 : "Liste des mots :"
         // Parcourir les lignes jusqu’à la ligne "Distance entre les mots :"
-        while (!Objects.equals(line = br.readLine(), "Distance entre les mots :")) {
+        while (!Objects.equals(line = br.readLine(), FileLine.DISTANCE_BETWEEN_WORDS.line)) {
             // On récupère les mots uniquement
-            String[] words = line.split(",");
+            String[] words = line.split(FileLine.SIMILARITY_SEPARATOR.line);
             addWord = new Word(words[0]);
         }
         br.readLine(); // Ligne 5 : "Distance entre les mots :"
@@ -222,6 +224,7 @@ public class MaximumSpanningTree {
                 MaximumSpanningTree.divideParts(edges, line);
             }
         }
+        br.close(); // Fermer le fichier
         assert addWord != null;
         // Créer une carte pour stocker le mot à ajouter et les arêtes et appeler la méthode addWord
         Map<Word, List<Edge>> wordMap = new HashMap<>(Map.of(addWord, edges));
@@ -230,32 +233,30 @@ public class MaximumSpanningTree {
 
     /**
      * @param file Nom du fichier
-     * @throws IOException Exporte l’arbre recouvrant maximal dans un fichier
-     *
-     * Méthode pour exporter l’arbre recouvrant maximal dans un fichier
      */
     public void exportMaximumSpanningTreeToFile(String file) {
         Path path = Paths.get(file); // Créer un objet Path pour le fichier
         // Créer un objet BufferedWriter pour écrire dans le fichier avec les options de création et d’écriture
         try (BufferedWriter bw = Files.newBufferedWriter(path, StandardOpenOption.CREATE, StandardOpenOption.WRITE)) {
-            bw.write("MaximumSpanningTree :\n");
-            bw.write("startWord : " + startWord);
+            bw.write(FileLine.MAXIMUM_SPANNING_TREE.line);
             bw.newLine();
-            bw.write("endWord : " + endWord);
+            bw.write(FileLine.START_WORD.line + startWord);
             bw.newLine();
-            bw.write("edgesMST :");
+            bw.write(FileLine.END_WORD.line + endWord);
+            bw.newLine();
+            bw.write(FileLine.EDGES_MST.line);
             bw.newLine();
             for (Edge edge : edgesMST) { // Parcourir chaque arête de l’arbre
-                bw.write(String.format("%s_%s,%.2f", edge.sourceWord().word(), edge.targetWord(), edge.similarity()));
+                bw.write(String.format(FileLine.EDGE_FORMAT.line, edge.sourceWord().word(), edge.targetWord(), edge.similarity()));
                 bw.newLine();
             }
-            bw.write("bannedWords :");
+            bw.write(FileLine.BANNED_WORDS.line);
             bw.newLine();
             for (Word word : bannedWords) { // Parcourir chaque mot interdit
                 bw.write(word.word());
                 bw.newLine();
             }
-            bw.write("EOF"); // Ajouter la fin du fichier
+            bw.write(FileLine.EOF.line); // Ajouter la fin du fichier
         } catch (IOException e) {
             e.printStackTrace();
         }

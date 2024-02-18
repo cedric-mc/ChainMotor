@@ -66,11 +66,8 @@ public class BestPath {
 
     /**
      * @param file Fichier de sortie
-     * @throws IOException Erreur d’entrée/sortie
-     *
-     * Méthode pour écrire le chemin le plus court dans un fichier
      */
-    public void writeBestPathToFile(String file) throws IOException {
+    public void writeBestPathToFile(String file) {
         // Si le fichier n’existe pas, le créer
         Path path = Path.of(file);
         try (BufferedWriter bw = Files.newBufferedWriter(path, StandardOpenOption.CREATE, StandardOpenOption.WRITE)) {
@@ -84,7 +81,7 @@ public class BestPath {
             bw.write(FileLine.BEST_PATH_EDGES.line); // Écrire les arêtes du chemin
             bw.newLine();
             for (Edge edge : bestPathEdges) { // Parcourir chaque arête du chemin
-                bw.write(edge.sourceWord() + FileLine.WORDS_SEPARATOR.line + edge.targetWord() + FileLine.SIMILARITY_SEPARATOR.line + edge.similarity());
+                bw.write(edge.sourceWord() + FileLine.WORDS_SEPARATOR_OUTPUT.line + edge.targetWord() + FileLine.SIMILARITY_SEPARATOR.line + edge.similarity());
                 bw.newLine();
             }
             bw.write(FileLine.EOF.line); // Marquer la fin du fichier
