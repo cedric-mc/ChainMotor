@@ -75,19 +75,19 @@ public class BestPath {
         Path path = Path.of(file);
         try (BufferedWriter bw = Files.newBufferedWriter(path, StandardOpenOption.CREATE, StandardOpenOption.WRITE)) {
             // Créer un écrivain de fichier
-            bw.write("BestPath :"); // Écrire l’Objet
+            bw.write(FileLine.BEST_PATH.line); // Écrire l’Objet
             bw.newLine(); // Sauter une ligne
-            bw.write("startWord : " + maximumSpanningTree.getStartWord()); // Écrire le mot de départ
+            bw.write(FileLine.START_WORD.line + maximumSpanningTree.getStartWord()); // Écrire le mot de départ
             bw.newLine();
-            bw.write("endWord : " + maximumSpanningTree.getEndWord()); // Écrire le mot de fin
+            bw.write(FileLine.END_WORD.line + maximumSpanningTree.getEndWord()); // Écrire le mot de fin
             bw.newLine();
-            bw.write("bestPathEdges :"); // Écrire les arêtes du chemin
+            bw.write(FileLine.BEST_PATH_EDGES.line); // Écrire les arêtes du chemin
             bw.newLine();
             for (Edge edge : bestPathEdges) { // Parcourir chaque arête du chemin
-                bw.write(edge.sourceWord() + "_" + edge.targetWord() + "," + edge.similarity());
+                bw.write(edge.sourceWord() + FileLine.WORDS_SEPARATOR.line + edge.targetWord() + FileLine.SIMILARITY_SEPARATOR.line + edge.similarity());
                 bw.newLine();
             }
-            bw.write("EOF"); // Marquer la fin du fichier
+            bw.write(FileLine.EOF.line); // Marquer la fin du fichier
         } catch (IOException e) {
             e.printStackTrace();
         }

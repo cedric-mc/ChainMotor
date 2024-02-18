@@ -44,13 +44,13 @@ public class Main {
         String fileNameJava = args[1]; // Nom du fichier Java : mst_[pseudo].txt
         String fileNameOutput = args[2]; // Nom du fichier de sortie : best_path_[pseudo].txt
         MaximumSpanningTree maximumSpanningTree;
-//        if (!Files.exists(Path.of(fileNameJava))) { // On vérifie que les fichiers existent
+        if (!Files.exists(Path.of(fileNameJava))) { // On vérifie que les fichiers existent
             // Création de l’arbre recouvrant maximal et exportation dans un fichier
             maximumSpanningTree = MaximumSpanningTree.createMaximumSpanningTree(fileNameC);
-//        } else { // Sinon, on charge l’arbre recouvrant maximal
-//            maximumSpanningTree = MaximumSpanningTree.loadMaximumSpanningTree(fileNameJava);
-//            maximumSpanningTree.loadAddEdges(fileNameC); // On ajoute les arêtes du nouveau mot à l'arbre recouvrant maximal
-//        }
+        } else { // Sinon, on charge l’arbre recouvrant maximal
+            maximumSpanningTree = MaximumSpanningTree.loadMaximumSpanningTree(fileNameJava);
+            maximumSpanningTree.loadAddEdges(fileNameC); // On ajoute les arêtes du nouveau mot à l'arbre recouvrant maximal
+        }
         // On exporte l’arbre recouvrant maximal dans un fichier
         maximumSpanningTree.exportMaximumSpanningTreeToFile(fileNameJava);
         // Trouver le chemin entre deux mots
@@ -58,7 +58,7 @@ public class Main {
 
         // Écrire le meilleur chemin dans un fichier
         // Récupérer un pseudo pour le nom du fichier
-        String pseudo = fileNameJava.split("_")[1].split("\\.")[0];
+        String pseudo = fileNameJava.split(FileLine.FILE_WORDS_SEPARATOR.line)[1].split("\\.")[0];
         bestPath.printPathAndScore();
         bestPath.writeBestPathToFile(fileNameOutput);
     }
