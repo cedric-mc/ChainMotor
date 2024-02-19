@@ -3,8 +3,7 @@ package fr.uge.main;
 import fr.uge.tree.MaximumSpanningTree;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.util.Objects;
 
 /**
  * Classe principale d’éxécution
@@ -41,7 +40,7 @@ public class Main {
         String fileNameJava = FileLine.GAME_FILE_JAVA.line + args[0] + FileLine.GAME_FILE_EXTENSION.line; // Nom du fichier Java : mst_[pseudo].txt
         String fileNameOutput = FileLine.GAME_FILE_OUTPUT.line + args[0] + FileLine.GAME_FILE_EXTENSION.line; // Nom du fichier de sortie : best_path_[pseudo].txt
         MaximumSpanningTree maximumSpanningTree;
-        if (args[1] == "0") {
+        if (Objects.equals(args[1], "0")) {
             // Création de l’arbre recouvrant maximal et exportation dans un fichier
             maximumSpanningTree = MaximumSpanningTree.createMaximumSpanningTree(fileNameC);
         } else { // Sinon, on charge l’arbre recouvrant maximal
