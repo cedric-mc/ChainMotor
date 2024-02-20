@@ -36,9 +36,9 @@ public class Main {
             System.out.println("Utilisation : java -cp ChainMotor/target/classes fr.uge.main.Main [pseudo] etat");
             return;
         }
-        String fileNameC = FileLine.GAME_FILE_C.line + args[0] + FileLine.GAME_FILE_EXTENSION.line; // Nom du fichier C : game_data_[pseudo].txt
-        String fileNameJava = FileLine.GAME_FILE_JAVA.line + args[0] + FileLine.GAME_FILE_EXTENSION.line; // Nom du fichier Java : mst_[pseudo].txt
-        String fileNameOutput = FileLine.GAME_FILE_OUTPUT.line + args[0] + FileLine.GAME_FILE_EXTENSION.line; // Nom du fichier de sortie : best_path_[pseudo].txt
+        String fileNameC = FileLine.FOLDER.line + FileLine.GAME_FILE_C.line + args[0] + FileLine.GAME_FILE_EXTENSION.line; // Nom du fichier C : game_data_[pseudo].txt
+        String fileNameJava = FileLine.FOLDER.line + FileLine.GAME_FILE_JAVA.line + args[0] + FileLine.GAME_FILE_EXTENSION.line; // Nom du fichier Java : mst_[pseudo].txt
+        String fileNameOutput = FileLine.FOLDER.line + FileLine.GAME_FILE_OUTPUT.line + args[0] + FileLine.GAME_FILE_EXTENSION.line; // Nom du fichier de sortie : best_path_[pseudo].txt
         MaximumSpanningTree maximumSpanningTree;
         if (Objects.equals(args[1], "0")) {
             // Création de l’arbre recouvrant maximal et exportation dans un fichier

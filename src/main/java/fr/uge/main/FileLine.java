@@ -11,6 +11,7 @@ package fr.uge.main;
  * @author Yacine ZEMOUCHE
  */
 public enum FileLine {
+    FOLDER("partie/"),
     GAME_FILE_C("game_data_"),
     GAME_FILE_JAVA("mst_"),
     GAME_FILE_OUTPUT("best_path_"),
