@@ -252,9 +252,11 @@ public class MaximumSpanningTree {
             }
             bw.write(FileLine.BANNED_WORDS.line);
             bw.newLine();
-            for (Word word : bannedWords) { // Parcourir chaque mot interdit
-                bw.write(word.word());
-                bw.newLine();
+            if (!bannedWords.isEmpty()) {
+                for (Word word : bannedWords) { // Parcourir chaque mot interdit
+                    bw.write(word.word());
+                    bw.newLine();
+                }
             }
             bw.write(FileLine.EOF.line); // Ajouter la fin du fichier
         } catch (IOException e) {
