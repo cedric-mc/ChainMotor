@@ -29,6 +29,7 @@ public enum FileLine {
     EDGES_MST("edgesMST :"),
     EDGE_FORMAT("%s_%s,%.2f"),
     BEST_PATH_EDGES("bestPathEdges :"),
+    MINIMUM_SIMILARITY("MinimumSimilarity : "),
     MAXIMUM_SPANNING_TREE("MaximumSpanningTree :");
 
     public final String line;

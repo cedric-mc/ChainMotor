@@ -81,9 +81,11 @@ public class BestPath {
             bw.write(FileLine.BEST_PATH_EDGES.line); // Écrire les arêtes du chemin
             bw.newLine();
             for (Edge edge : bestPathEdges) { // Parcourir chaque arête du chemin
-                bw.write(edge.sourceWord() + FileLine.WORDS_SEPARATOR_OUTPUT.line + edge.targetWord() + FileLine.SIMILARITY_SEPARATOR.line + edge.similarity());
+                bw.write(String.format(FileLine.EDGE_FORMAT.line, edge.sourceWord().word(), edge.targetWord(), edge.similarity()));
                 bw.newLine();
             }
+            bw.write(FileLine.DISTANCE_BETWEEN_WORDS.line + minimumSimilarity); // Écrire la similarité minimale du chemin
+            bw.newLine();
             bw.write(FileLine.EOF.line); // Marquer la fin du fichier
         } catch (IOException e) {
             e.printStackTrace();
