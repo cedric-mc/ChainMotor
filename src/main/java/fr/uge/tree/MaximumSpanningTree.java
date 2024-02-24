@@ -188,7 +188,7 @@ public class MaximumSpanningTree {
         br.readLine(); // Ligne 5 : "voiture, offset: 561464"
         br.readLine(); // Ligne 6 : "bus, offset: 1715044"
         br.readLine(); // Ligne 7 : "Distance entre les mots :"
-        String[] parts = br.readLine().split(FileLine.SIMILARITY_C_FILE_SEPARATOR.line); // Ligne 8 : "voiture_bus,0.5"
+        String[] parts = br.readLine().split(FileLine.SIMILARITY_C_FILE_SEPARATOR.line); // Ligne 8 : "voiture_bus, distance:0.5"
         splitWordsAndSimilarity(edges, parts); // Ajouter l’arête à la liste
         br.close(); // Fermer le fichier
         return new MaximumSpanningTree(startWord, endWord, edges, new HashSet<>()); // Retourner un nouvel objet MaximumSpanningTree

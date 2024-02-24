@@ -84,7 +84,7 @@ public class BestPath {
                 bw.write(String.format(FileLine.EDGE_FORMAT.line, edge.sourceWord().word(), edge.targetWord(), edge.similarity()));
                 bw.newLine();
             }
-            bw.write(FileLine.DISTANCE_BETWEEN_WORDS.line + minimumSimilarity); // Écrire la similarité minimale du chemin
+            bw.write(FileLine.MINIMUM_SIMILARITY.line + minimumSimilarity); // Écrire la similarité minimale du chemin
             bw.newLine();
             bw.write(FileLine.EOF.line); // Marquer la fin du fichier
         } catch (IOException e) {
