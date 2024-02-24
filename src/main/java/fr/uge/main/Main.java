@@ -45,7 +45,9 @@ public class Main {
             maximumSpanningTree = MaximumSpanningTree.createMaximumSpanningTree(fileNameC);
         } else { // Sinon, on charge l’arbre recouvrant maximal
             maximumSpanningTree = MaximumSpanningTree.loadMaximumSpanningTree(fileNameJava);
+            System.out.println("MaximumSpanningTree : " + maximumSpanningTree);
             maximumSpanningTree.loadAddEdges(fileNameC); // On ajoute les arêtes du nouveau mot à l'arbre recouvrant maximal
+            System.out.println("loadAddEdges : " + maximumSpanningTree);
         }
         // On exporte l’arbre recouvrant maximal dans un fichier
         maximumSpanningTree.exportMaximumSpanningTreeToFile(fileNameJava);

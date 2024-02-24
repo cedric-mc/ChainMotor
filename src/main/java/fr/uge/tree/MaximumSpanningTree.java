@@ -244,6 +244,7 @@ public class MaximumSpanningTree {
         assert addWord != null;
         // Créer une carte pour stocker le mot à ajouter et les arêtes et appeler la méthode addWord
         Map<Word, List<Edge>> wordMap = new HashMap<>(Map.of(addWord, edges));
+        System.out.println("wordMap : " + wordMap);
         addWord(wordMap);
     }
 
