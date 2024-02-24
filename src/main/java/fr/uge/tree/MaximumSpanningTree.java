@@ -374,7 +374,29 @@ public class MaximumSpanningTree {
             if (!lowestSimilarityEdges.isEmpty()) { // Dans le cas où il y a plusieurs arêtes avec la même similarité minimale
                 Random random = new Random();
                 Edge edgeToRemove = lowestSimilarityEdges.get(random.nextInt(lowestSimilarityEdges.size()));
-                removeEdge(edgeToRemove);
+
+                // Vérifier si l'arête à supprimer est la seule arête connectée au mot de départ ou au mot cible
+                long countStart = edgesMST.stream()
+                        .filter(edge -> edge.sourceWord().equals(startWord) || edge.targetWord().equals(startWord))
+                        .count();
+                long countEnd = edgesMST.stream()
+                        .filter(edge -> edge.sourceWord().equals(endWord) || edge.targetWord().equals(endWord))
+                        .count();
+
+                if ((countStart > 1 || (!edgeToRemove.sourceWord().equals(startWord) && !edgeToRemove.targetWord().equals(startWord))) &&
+                        (countEnd > 1 || (!edgeToRemove.sourceWord().equals(endWord) && !edgeToRemove.targetWord().equals(endWord)))) {
+                    removeEdge(edgeToRemove);
+                } else {
+                    // Trouver une autre arête à supprimer
+                    Edge secondEdgeToRemove = cycleEdges.stream()
+                            .filter(edge -> edge != edgeToRemove)
+                            .min(Comparator.comparingDouble(Edge::similarity))
+                            .orElse(null);
+
+                    if (secondEdgeToRemove != null) {
+                        removeEdge(secondEdgeToRemove);
+                    }
+                }
             }
         }
     }
@@ -414,8 +436,16 @@ public class MaximumSpanningTree {
         List<Edge> addEdges = new ArrayList<>(addWordAndEdges.values().iterator().next());
         // Créer un mot pour stocker le mot à ajouter
         Word addingWord = addWordAndEdges.keySet().iterator().next();
+
+        // Enlever les arêtes dont la similarité est inférieure à la similarité minimale entre les nœuds de l’arbre
+        addEdges.removeIf(edge -> edge.similarity() < this.getEdgesMST().stream()
+                .mapToDouble(Edge::similarity)
+                .min()
+                .orElse(Double.MIN_VALUE));
         // Trier les nouvelles arêtes par similarité décroissante
         addEdges.sort(Comparator.comparingDouble(Edge::similarity).reversed());
+
+        System.out.println("addEdges : " + addEdges);
 
         // Parcourir chaque nouvelle arête
         for (Edge edgeToAdd : addEdges) {
