@@ -229,8 +229,15 @@ public class MaximumSpanningTree {
         // Parcourir les lignes jusqu’à la fin du fichier
         while ((line = br.readLine()) != null) {
             assert addWord != null;
+            Word sourceWord;
+            Word targetWord;
+            double similarity;
             if (line.contains(addWord.word())) {
-                MaximumSpanningTree.divideParts(edges, line);
+                String[] parts = line.split(FileLine.SIMILARITY_C_FILE_SEPARATOR.line);
+                sourceWord = new Word(parts[0].split(FileLine.WORDS_SEPARATOR_OUTPUT.line)[0]);
+                targetWord = new Word(parts[0].split(FileLine.WORDS_SEPARATOR_OUTPUT.line)[1]);
+                similarity = Double.parseDouble(parts[1]);
+                edges.add(new Edge(sourceWord, similarity, targetWord)); // Ajouter l’arête à la liste
             }
         }
         br.close(); // Fermer le fichier
