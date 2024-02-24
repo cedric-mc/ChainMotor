@@ -70,11 +70,11 @@ public class MaximumSpanningTree {
         String endWord = br.readLine().split(FileLine.FIELDS_SEPARATOR.line)[1].trim(); // Ligne 3 : "endWord : word2"
 
         br.readLine(); // Ligne 4 : "edgesMST :"
-
-        while (!Objects.equals(line = br.readLine(), FileLine.BANNED_WORDS.line)) {
+        // Parcourir les lignes jusqu’à la ligne "bannedWords :" (si il n'y a pas de mots interdits on passe directement à la ligne EOF)
+        while (!Objects.equals(line = br.readLine(), FileLine.BANNED_WORDS.line) || !Objects.equals(line, FileLine.EOF.line)) {
             divideParts(edgesMST, line);
         }
-
+        // Parcourir les lignes jusqu’à la fin du fichier
         while (!Objects.equals(line = br.readLine(), FileLine.EOF.line)) {
             bannedWords.add(new Word(line));
         }
