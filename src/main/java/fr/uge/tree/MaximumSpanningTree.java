@@ -73,7 +73,7 @@ public class MaximumSpanningTree {
 
         br.readLine(); // Ligne 4 : "edgesMST :"
         // Parcourir les lignes jusqu’à la ligne "bannedWords :" (si il n'y a pas de mots interdits on passe directement à la ligne EOF)
-        while (!Objects.equals(line = br.readLine(), FileLine.BANNED_WORDS.line) || !Objects.equals(line, FileLine.EOF.line)) {
+        while (!Objects.equals(line = br.readLine(), FileLine.BANNED_WORDS.line)) {
             Pattern pattern = Pattern.compile("^(\\w+)_(\\w+),(\\d+\\.\\d+)$");
             Matcher matcher = pattern.matcher(line);
             if (matcher.find()) {
