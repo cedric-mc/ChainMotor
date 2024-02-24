@@ -10,6 +10,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Classe pour représenter un arbre recouvrant maximal (MST) et effectuer des opérations sur cet arbre.
@@ -72,7 +74,14 @@ public class MaximumSpanningTree {
         br.readLine(); // Ligne 4 : "edgesMST :"
         // Parcourir les lignes jusqu’à la ligne "bannedWords :" (si il n'y a pas de mots interdits on passe directement à la ligne EOF)
         while (!Objects.equals(line = br.readLine(), FileLine.BANNED_WORDS.line) || !Objects.equals(line, FileLine.EOF.line)) {
-            divideParts(edgesMST, line);
+            Pattern pattern = Pattern.compile("^(\\w+)_(\\w+),(\\d+\\.\\d+)$");
+            Matcher matcher = pattern.matcher(line);
+            if (matcher.find()) {
+                Word sourceWord = new Word(matcher.group(1));
+                Word targetWord = new Word(matcher.group(2));
+                double similarity = Double.parseDouble(matcher.group(3));
+                edgesMST.add(new Edge(sourceWord, similarity, targetWord)); // Ajouter l’arête à la liste
+            }
         }
         // Parcourir les lignes jusqu’à la fin du fichier
         while (!Objects.equals(line = br.readLine(), FileLine.EOF.line)) {
@@ -89,7 +98,7 @@ public class MaximumSpanningTree {
      * Divise une ligne en parties et ajoute les arêtes à la liste
      */
     public static void divideParts(List<Edge> edgesMST, String line) {
-        String[] parts = line.split(FileLine.SIMILARITY_C_FILE_SEPARATOR.line);
+        String[] parts = line.split(FileLine.WORDS_SEPARATOR_OUTPUT.line);
         splitWordsAndSimilarity(edgesMST, parts);
     }
 
