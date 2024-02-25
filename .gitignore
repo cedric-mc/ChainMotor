@@ -47,3 +47,7 @@ jdk-21.0.2/
 !jdk-21.0.2/bin/javaw.exe
 !jdk-21.0.2/bin/jar.exe
 .idea/dictionaries/cedri.xml
+
+partie/game_data_*.txt
+partie/mst_*.txt
+partie/best_path_*.txt
