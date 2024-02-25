@@ -15,13 +15,16 @@ import java.util.regex.Pattern;
 
 /**
  * Classe pour représenter un arbre recouvrant maximal (MST) et effectuer des opérations sur cet arbre.
- *
  * lang = fr
  * @author Mamadou BA
  * @author Cédric MARIYA CONSTANTINE
  * @author Abdelrahim RICHE
  * @author Vincent SOUSA
  * @author Yacine ZEMOUCHE
+ * @see Word
+ * @see Edge
+ * @see FileLine
+ * @see fr.uge.main
  */
 public class MaximumSpanningTree {
     private final Word startWord; // Mot de départ
@@ -92,17 +95,6 @@ public class MaximumSpanningTree {
     }
 
     /**
-     * @param edgesMST Liste d’arêtes de l’arbre de recouvrement minimal
-     * @param line Ligne à diviser
-     *
-     * Divise une ligne en parties et ajoute les arêtes à la liste
-     */
-    public static void divideParts(List<Edge> edgesMST, String line) {
-        String[] parts = line.split(FileLine.WORDS_SEPARATOR_OUTPUT.line);
-        splitWordsAndSimilarity(edgesMST, parts);
-    }
-
-    /**
      * @return Word Mot de départ
      */
     public Word getStartWord() {
@@ -149,21 +141,22 @@ public class MaximumSpanningTree {
      */
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder(); // Créer un objet StringBuilder pour construire la chaîne
-        sb.append("MaximumSpanningTree :").append(System.lineSeparator()); // Ajouter le nom de l'Objet
-        // Ajouter le mot de départ et le mot de fin
-        sb.append("startWord : ").append(startWord).append(System.lineSeparator());
-        sb.append("endWord : ").append(endWord).append(System.lineSeparator());
+        StringBuilder sb = new StringBuilder(); // Créer un objet StringBuilder
+        sb.append(FileLine.MAXIMUM_SPANNING_TREE.line).append("\n"); // Ajouter la ligne "MaximumSpanningTree :"
+        // Ajouter les mots de départ et de fin
+        sb.append(FileLine.START_WORD.line).append(startWord).append("\n");
+        sb.append(FileLine.END_WORD.line).append(endWord).append("\n");
         // Ajouter les arêtes de l’arbre
-        sb.append("edgesMST :").append(System.lineSeparator());
-        for (Edge edge : edgesMST) {
-            sb.append(edge.sourceWord()).append("_").append(edge.targetWord()).append(",").append(edge.similarity()).append(System.lineSeparator());
+        sb.append(FileLine.EDGES_MST.line).append("\n");
+        for (Edge edge : edgesMST) { // Parcourir chaque arête
+            sb.append(String.format(FileLine.EDGE_FORMAT.line, edge.sourceWord().word(), edge.targetWord(), edge.similarity())).append("\n");
         }
         // Ajouter les mots interdits
-        sb.append("bannedWords :").append(System.lineSeparator());
-        for (Word word : bannedWords) {
-            sb.append(word).append(System.lineSeparator());
+        sb.append(FileLine.BANNED_WORDS.line).append("\n");
+        for (Word word : bannedWords) { // Parcourir chaque mot interdit
+            sb.append(word.word()).append("\n");
         }
+        sb.append(FileLine.EOF.line);
         return sb.toString();
     }
 
@@ -255,25 +248,7 @@ public class MaximumSpanningTree {
         Path path = Paths.get(file); // Créer un objet Path pour le fichier
         // Créer un objet BufferedWriter pour écrire dans le fichier avec les options de création et d’écriture
         try (BufferedWriter bw = Files.newBufferedWriter(path, StandardOpenOption.CREATE, StandardOpenOption.WRITE)) {
-            bw.write(FileLine.MAXIMUM_SPANNING_TREE.line);
-            bw.newLine();
-            bw.write(FileLine.START_WORD.line + startWord);
-            bw.newLine();
-            bw.write(FileLine.END_WORD.line + endWord);
-            bw.newLine();
-            bw.write(FileLine.EDGES_MST.line);
-            bw.newLine();
-            for (Edge edge : edgesMST) { // Parcourir chaque arête de l’arbre
-                bw.write(String.format(FileLine.EDGE_FORMAT.line, edge.sourceWord().word(), edge.targetWord(), edge.similarity()));
-                bw.newLine();
-            }
-            bw.write(FileLine.BANNED_WORDS.line);
-            bw.newLine();
-            for (Word word : bannedWords) { // Parcourir chaque mot interdit
-                bw.write(word.word());
-                bw.newLine();
-            }
-            bw.write(FileLine.EOF.line); // Ajouter la fin du fichier
+            bw.write(this.toString()); // Écrire l’arbre recouvrant maximal dans le fichier
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -388,14 +363,10 @@ public class MaximumSpanningTree {
                     removeEdge(edgeToRemove);
                 } else {
                     // Trouver une autre arête à supprimer
-                    Edge secondEdgeToRemove = cycleEdges.stream()
+                    cycleEdges.stream()
                             .filter(edge -> edge != edgeToRemove)
-                            .min(Comparator.comparingDouble(Edge::similarity))
-                            .orElse(null);
+                            .min(Comparator.comparingDouble(Edge::similarity)).ifPresent(this::removeEdge);
 
-                    if (secondEdgeToRemove != null) {
-                        removeEdge(secondEdgeToRemove);
-                    }
                 }
             }
         }
