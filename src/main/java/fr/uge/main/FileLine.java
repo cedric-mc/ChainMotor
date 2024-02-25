@@ -2,8 +2,10 @@ package fr.uge.main;
 
 /**
  * Enumération des lignes de fichier, pour une meilleure lisibilité
- * @see FileLine
  * lang = fr
+ * @see fr.uge.main.BestPath
+ * @see fr.uge.main.Main
+ * @see fr.uge.tree.MaximumSpanningTree
  * @author Mamadou BA
  * @author Cédric MARIYA CONSTANTINE
  * @author Abdelrahim RICHE
@@ -11,29 +13,96 @@ package fr.uge.main;
  * @author Yacine ZEMOUCHE
  */
 public enum FileLine {
-    FOLDER("partie/"),
-    GAME_FILE_C("game_data_"),
-    GAME_FILE_JAVA("mst_"),
-    GAME_FILE_OUTPUT("best_path_"),
-    GAME_FILE_EXTENSION(".txt"),
-    FIELDS_SEPARATOR(":"),
+    /**
+     * Lignes de fichier : bannedWords
+     */
     BANNED_WORDS("bannedWords :"),
-    DISTANCE_BETWEEN_WORDS("Distance entre les mots :"),
-    SIMILARITY_C_FILE_SEPARATOR(", distance:"),
-    WORDS_SEPARATOR_OUTPUT("_"),
-    SIMILARITY_SEPARATOR(","),
-    EOF("EOF"),
+    /**
+     * Lignes de fichier : BestPath
+     */
     BEST_PATH("BestPath :"),
-    START_WORD("startWord : "),
-    END_WORD("endWord : "),
-    EDGES_MST("edgesMST :"),
-    EDGE_FORMAT("%s_%s,%.2f"),
+    /**
+     * Lignes de fichier : bestPathEdges
+     */
     BEST_PATH_EDGES("bestPathEdges :"),
+    /**
+     * Lignes de fichier : distanceBetweenWords
+     */
+    DISTANCE_BETWEEN_WORDS("Distance entre les mots :"),
+    /**
+     * Lignes de fichier : edgesMST
+     */
+    EDGES_MST("edgesMST :"),
+    /**
+     * Lignes de fichier : format d'une arête
+     */
+    EDGE_FORMAT("%s_%s,%.2f"),
+    /**
+     * Lignes de fichier : endWord
+     */
+    END_WORD("endWord : "),
+    /**
+     * Lignes de fichier : EOF (End Of File)
+     */
+    EOF("EOF"),
+    /**
+     * Lignes de fichier : fieldsSeparator
+     */
+    FIELDS_SEPARATOR(":"),
+    /**
+     * Lignes de fichier : folder
+     */
+    FOLDER("partie/"),
+    /**
+     * Lignes de fichier : game_data_ (fichier généré par le programme C)
+     */
+    GAME_FILE_C("game_data_"),
+    /**
+     * Lignes de fichier : gameFileExtension (extension des fichiers)
+     */
+    GAME_FILE_EXTENSION(".txt"),
+    /**
+     * Lignes de fichier : mst_ (fichier généré par le programme Java)
+     */
+    GAME_FILE_JAVA("mst_"),
+    /**
+     * Lignes de fichier : best_path_ (fichier généré par le programme Java)
+     */
+    GAME_FILE_OUTPUT("best_path_"),
+    /**
+     * Lignes de fichier : maximumSpanningTree
+     */
+    MAXIMUM_SPANNING_TREE("MaximumSpanningTree :"),
+    /**
+     * Lignes de fichier : minimumSimilarity
+     */
     MINIMUM_SIMILARITY("MinimumSimilarity : "),
-    MAXIMUM_SPANNING_TREE("MaximumSpanningTree :");
+    /**
+     * Lignes de fichier : obtenir les mots de départ et de fin et la similarité
+     */
+    SIMILARITY_C_FILE_SEPARATOR(", distance:"),
+    /**
+     * Lignes de fichier : séparateur des mots et similarité dans le fichier de sortie
+     */
+    SIMILARITY_SEPARATOR(","),
+    /**
+     * Lignes de fichier : startWord
+     */
+    START_WORD("startWord : "),
+    /**
+     * Lignes de fichier : wordsSeparator
+     */
+    WORDS_SEPARATOR_OUTPUT("_");
 
+    /**
+     * Ligne de fichier
+     */
     public final String line;
 
+    /**
+     * Constructeur
+     * @param line Ligne de fichier
+     */
     FileLine(String line) {
         this.line = line;
     }

@@ -3,16 +3,18 @@ package fr.uge.tree;
 import java.util.Objects;
 
 /**
- * @param sourceWord : le mot source
- * @param similarity : la similarité
- * @param targetWord : le mot cible
+ * Classe qui représente une arête dans un arbre recouvrant maximal
+ * @param sourceWord le mot source
+ * @param similarity la similarité
+ * @param targetWord le mot cible
+ * lang = fr
+ * @see MaximumSpanningTree
+ * @see Word
  * @author Mamadou BA
  * @author Cédric MARIYA CONSTANTINE
  * @author Abdelrahim RICHE
  * @author Vincent SOUSA
  * @author Yacine ZEMOUCHE
- *
- * Classe qui représente une arête dans un arbre recouvrant maximal
  */
 public record Edge(Word sourceWord, double similarity, Word targetWord) {
 

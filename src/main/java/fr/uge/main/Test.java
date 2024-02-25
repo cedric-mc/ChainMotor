@@ -4,16 +4,19 @@ import fr.uge.tree.Edge;
 import fr.uge.tree.MaximumSpanningTree;
 import fr.uge.tree.Word;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Classe de Test
- * @see Test
+ * Classe de Test pour illustrer l'utilisation de MaximumSpanningTree et BestPath.
+ * Cette classe crée un exemple d'arbre recouvrant maximal et trouve le meilleur chemin entre deux mots.
  * lang = fr
+ * @see MaximumSpanningTree
+ * @see BestPath
+ * @see Word
+ * @see Edge
  * @author Mamadou BA
  * @author Cédric MARIYA CONSTANTINE
  * @author Abdelrahim RICHE
@@ -21,6 +24,11 @@ import java.util.Map;
  * @author Yacine ZEMOUCHE
  */
 public class Test {
+    /**
+     * Constructeur par défaut
+     */
+    public Test() {
+    }
     /**
      * Méthode principale :
      * @param args

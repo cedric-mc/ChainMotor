@@ -13,7 +13,15 @@ import java.util.*;
 
 /**
  * Classe pour trouver le chemin le plus court entre deux mots dans un arbre MST
- *
+ * lang = fr
+ * @see MaximumSpanningTree
+ * @see Word
+ * @see Edge
+ * @see fr.uge.tree
+ * @see fr.uge.main
+ * @see fr.uge.main.Test
+ * @see fr.uge.main.FileLine
+ * @see fr.uge.main.Main
  * @author Mamadou BA
  * @author Cédric MARIYA CONSTANTINE
  * @author Abdelrahim RICHE
@@ -22,14 +30,22 @@ import java.util.*;
  */
 public class BestPath {
 
+    /**
+     * Arbre MST
+     */
     private final MaximumSpanningTree maximumSpanningTree; // Arbre MST
+    /**
+     * Arêtes du meilleur chemin
+     */
     private final List<Edge> bestPathEdges; // Arêtes du chemin
+    /**
+     * Similarité minimale du chemin (plus petite similarité dans le chemin)
+     */
     private final double minimumSimilarity; // Similarité minimale du chemin
 
     /**
-     * @param maximumSpanningTree Arbre MST
-     *
      * Constructeur pour trouver le chemin le plus court entre deux mots dans un arbre MST
+     * @param maximumSpanningTree Arbre MST
      */
     public BestPath(MaximumSpanningTree maximumSpanningTree) {
         this.maximumSpanningTree = maximumSpanningTree;
@@ -38,33 +54,31 @@ public class BestPath {
     }
 
     /**
-     * @return Arbre MST
-     *
      * Méthode pour obtenir l’arbre MST
+     * @return Arbre MST
      */
     public MaximumSpanningTree getMaximumSpanningTree() {
         return maximumSpanningTree;
     }
 
     /**
-     * @return Arêtes du chemin
-     *
      * Méthode pour obtenir les arêtes du chemin
+     * @return Arêtes du chemin
      */
     public List<Edge> getBestPathEdges() {
         return bestPathEdges;
     }
 
     /**
-     * @return Similarité minimale du chemin
-     *
      * Méthode pour obtenir la similarité minimale du chemin
+     * @return Similarité minimale du chemin
      */
     public double getMinimumSimilarity() {
         return minimumSimilarity;
     }
 
     /**
+     * Méthode pour écrire le chemin le plus court dans un fichier
      * @param file Fichier de sortie
      */
     public void writeBestPathToFile(String file) {
@@ -93,10 +107,9 @@ public class BestPath {
     }
 
     /**
+     * Méthode pour calculer la similarité minimale du chemin
      * @param path Chemin
      * @return Similarité minimale du chemin
-     *
-     * Méthode pour calculer la similarité minimale du chemin
      */
     private double calculatePathScore(List<Edge> path) {
         // Initialiser le score avec la valeur maximale possible
@@ -130,11 +143,10 @@ public class BestPath {
     }
 
     /**
+     * Méthode pour trouver le chemin le plus court entre deux mots
      * @param word1 Mot 1
      * @param word2 Mot 2
      * @return Arêtes du chemin le plus court entre les deux mots
-     *
-     * Méthode pour trouver le chemin le plus court entre deux mots
      */
     private Edge findEdgeBetween(Word word1, Word word2) {
         for (Edge edge : maximumSpanningTree.getEdgesMST()) { // Parcourir chaque arête de l’arbre
@@ -148,10 +160,9 @@ public class BestPath {
     }
 
     /**
+     * Méthode pour construire le chemin à partir de la carte parent
      * @param parentMap Carte parent
      * @return Chemin
-     *
-     * Méthode pour construire le chemin à partir de la carte parent
      */
     private List<Edge> constructPath(Map<Word, Word> parentMap) {
         List<Edge> path = new ArrayList<>();
@@ -176,9 +187,8 @@ public class BestPath {
     }
 
     /**
-     * @return Chemin
-     *
      * Méthode pour trouver le chemin le plus court entre le mot de départ et le mot de fin
+     * @return Chemin
      */
     private List<Edge> breadthFirstSearch() {
         Map<Word, Word> parentMap = new HashMap<>(); // Carte pour garder une trace du mot parent pour chaque mot visité

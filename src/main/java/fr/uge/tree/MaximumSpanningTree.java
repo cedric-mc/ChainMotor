@@ -16,29 +16,44 @@ import java.util.regex.Pattern;
 /**
  * Classe pour représenter un arbre recouvrant maximal (MST) et effectuer des opérations sur cet arbre.
  * lang = fr
+ * @see Word
+ * @see Edge
+ * @see FileLine
+ * @see fr.uge.main
+ * @see fr.uge.tree
+ * @see fr.uge.main.Test
+ * @see fr.uge.main.BestPath
+ * @see fr.uge.main.Main
  * @author Mamadou BA
  * @author Cédric MARIYA CONSTANTINE
  * @author Abdelrahim RICHE
  * @author Vincent SOUSA
  * @author Yacine ZEMOUCHE
- * @see Word
- * @see Edge
- * @see FileLine
- * @see fr.uge.main
  */
 public class MaximumSpanningTree {
-    private final Word startWord; // Mot de départ
-    private final Word endWord; // Mot de fin
-    private final List<Edge> edgesMST; // Arêtes de l’arbre de recouvrement minimal
-    private final Set<Word> bannedWords; // Mots interdits
+    /**
+     * Mot de départ
+     */
+    private final Word startWord;
+    /**
+     * Mot de fin
+     */
+    private final Word endWord;
+    /**
+     * Arêtes de l’arbre de recouvrement minimal
+     */
+    private final List<Edge> edgesMST;
+    /**
+     * Ensemble de mots interdits
+     */
+    private final Set<Word> bannedWords;
 
     /**
+     * Constructeur pour initialiser un arbre recouvrant maximal
      * @param startWord Mot de départ
      * @param endWord  Mot de fin
      * @param edgesMST Arêtes de l’arbre de recouvrement minimal
      * @param bannedWords Mots interdits
-     *
-     * Constructeur pour initialiser un arbre recouvrant maximal
      */
     public MaximumSpanningTree(Word startWord, Word endWord, List<Edge> edgesMST, Set<Word> bannedWords) {
         this.edgesMST = edgesMST;
@@ -48,21 +63,19 @@ public class MaximumSpanningTree {
     }
 
     /**
+     * Constructeur pour initialiser un arbre recouvrant maximal sans arêtes
      * @param startWord Mot de départ
      * @param endWord Mot de fin
-     *
-     * Constructeur pour initialiser un arbre recouvrant maximal sans arêtes
      */
     public MaximumSpanningTree(Word startWord, Word endWord) {
         this(startWord, endWord, new ArrayList<>(), new HashSet<>());
     }
 
     /**
+     * Charge un arbre recouvrant maximal à partir d’un fichier
      * @param file Chemin du fichier
      * @return MaximumSpanningTree
-     * @throws IOException
-     *
-     * Charge un arbre recouvrant maximal à partir d’un fichier
+     * @throws IOException Déclenche une exception d’entrée/sortie
      */
     public static MaximumSpanningTree loadMaximumSpanningTree(String file) throws IOException {
         List<Edge> edgesMST = new ArrayList<>();
@@ -95,6 +108,7 @@ public class MaximumSpanningTree {
     }
 
     /**
+     * Méthode pour obtenir le mot de départ
      * @return Word Mot de départ
      */
     public Word getStartWord() {
@@ -102,6 +116,7 @@ public class MaximumSpanningTree {
     }
 
     /**
+     * Méthode pour obtenir le mot de fin
      * @return Word Mot de fin
      */
     public Word getEndWord() {
@@ -109,20 +124,23 @@ public class MaximumSpanningTree {
     }
 
     /**
-     * @return List<Edge> Arêtes de l’arbre de recouvrement minimal
+     * Méthode pour obtenir les arêtes de l’arbre de recouvrement minimal
+     * @return La liste d'arêtes de l’arbre de recouvrement minimal
      */
     public List<Edge> getEdgesMST() {
         return edgesMST;
     }
 
     /**
-     * @return Set<Word> Ensemble de mots interdits
+     * Méthode pour obtenir les mots interdits
+     * @return l'ensemble de mots interdits
      */
     public Set<Word> getBannedWords() {
         return bannedWords;
     }
 
     /**
+     * Méthode pour ajouter une arête à l’arbre recouvrant maximal
      * @param edge Arête à ajouter
      */
     public void addEdge(Edge edge) {
@@ -130,6 +148,7 @@ public class MaximumSpanningTree {
     }
 
     /**
+     * Méthode pour supprimer une arête de l’arbre recouvrant maximal
      * @param edge Arête à supprimer
      */
     public void removeEdge(Edge edge) {
@@ -137,6 +156,7 @@ public class MaximumSpanningTree {
     }
 
     /**
+     * Méthode pour obtenir une représentation textuelle de l’arbre recouvrant maximal
      * @return String Représentation textuelle de l’arbre recouvrant maximal
      */
     @Override
@@ -161,6 +181,7 @@ public class MaximumSpanningTree {
     }
 
     /**
+     * Méthode pour diviser les mots et la similarité
      * @param edges Liste d’arêtes
      * @param parts Parties de la ligne
      */
@@ -174,10 +195,10 @@ public class MaximumSpanningTree {
     }
 
     /**
+     * Méthode pour le premier fichier et le MaximumSpanningTree du premier tour (soit mot de départ et mot de fin et la seule arête)
      * @param fileC Chemin du fichier
      * @return MaximumSpanningTree
      * @throws IOException Charge un arbre recouvrant maximal à partir d’un fichier
-     * Méthode pour le premier fichier et le MaximumSpanningTree du premier tour (soit mot de départ et mot de fin et la seule arête)
      */
     public static MaximumSpanningTree createMaximumSpanningTree(String fileC) throws IOException {
         List<Edge> edges = new ArrayList<>(); // Créer une liste pour stocker les arêtes
@@ -197,10 +218,9 @@ public class MaximumSpanningTree {
     }
 
     /**
+     * Méthode pour ajouter les arêtes d’un mot à l’arbre recouvrant maximal
      * @param file Chemin du fichier
      * @throws IOException Charge et ajoute les arêtes d’un mot à l’arbre recouvrant maximal
-     *
-     * Méthode pour ajouter les arêtes d’un mot à l’arbre recouvrant maximal
      */
     public void loadAddEdges(String file) throws IOException {
         Word addWord = null; // Créer un mot pour stocker le mot à ajouter
@@ -242,6 +262,7 @@ public class MaximumSpanningTree {
     }
 
     /**
+     * Méthode pour exporter l’arbre recouvrant maximal dans un fichier
      * @param file Nom du fichier
      */
     public void exportMaximumSpanningTreeToFile(String file) {
@@ -255,13 +276,12 @@ public class MaximumSpanningTree {
     }
 
     /**
+     * Méthode DFS pour détecter un cycle et recueillir les arêtes du cycle
      * @param current Mot actuel
      * @param parent Mot parent
      * @param visited Mots visités
      * @param cycleEdges Arêtes du cycle
      * @return boolean Méthode DFS pour détecter un cycle et recueillir les arêtes du cycle
-     *
-     * Méthode DFS pour détecter un cycle et recueillir les arêtes du cycle
      */
     private boolean depthFirstSearch(Word current, Word parent, Set<Word> visited, List<Edge> cycleEdges) {
         // Marquer le mot actuel comme visité
@@ -300,9 +320,11 @@ public class MaximumSpanningTree {
     }
 
     /**
-     * @return List<Edge> Trouve les arêtes formant un cycle dans l’arbre recouvrant maximal
+     * Méthode pour trouver les arêtes formant un cycle dans l’arbre recouvrant maximal.
+     * Cette méthode effectue une recherche DFS pour détecter un cycle dans l'arbre
+     * et collecte les arêtes du cycle le cas échéant.
      *
-     * Méthode publique pour trouver les arêtes formant un cycle
+     * @return La liste des arêtes formant un cycle dans l'arbre recouvrant maximal.
      */
     private List<Edge> findCycleEdges() {
         // Créer un ensemble pour suivre les mots visités
@@ -373,10 +395,9 @@ public class MaximumSpanningTree {
     }
 
     /**
+     * Méthode pour connaître si le mot à ajouter a été ajouter ou non dans le MST
      * @param word Mot à ajouter
      * @return boolean Vérifie si un mot a été ajouté à l’arbre recouvrant maximal
-     *
-     * Méthode pour connaître si le mot à ajouter a été ajouter ou non dans le MST
      */
     private boolean isWordAdded(Word word) {
         // Retourne vrai si le mot a été ajouté à l’arbre
@@ -385,10 +406,9 @@ public class MaximumSpanningTree {
     }
 
     /**
+     * Méthode pour vérifier si une arête contient un mot interdit
      * @param edge Arête à vérifier
      * @return boolean Vérifie si une arête contient un mot interdit
-     *
-     * Méthode pour vérifier si une arête contient un mot interdit
      */
     private boolean containsBannedWord(Edge edge) {
         // Vérifier si l’arête contient un mot interdit
@@ -398,6 +418,7 @@ public class MaximumSpanningTree {
     }
 
     /**
+     * Méthode pour ajouter un mot à l’arbre recouvrant maximal
      * @param addWordAndEdges Mot à ajouter et ses arêtes
      *
      * Ajoute un mot à l’arbre recouvrant maximal

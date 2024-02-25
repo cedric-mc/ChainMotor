@@ -3,9 +3,12 @@ package fr.uge.tree;
 import java.util.Objects;
 
 /**
- * @param word
+ * Classe qui représente un mot dans un arbre recouvrant maximal
+ * @param word Mot
  * word : Représente un mot dans l’arbre recouvrant maximal
  * lang = fr
+ * @see MaximumSpanningTree
+ * @see Edge
  * @author Mamadou BA
  * @author Cédric MARIYA CONSTANTINE
  * @author Abdelrahim RICHE

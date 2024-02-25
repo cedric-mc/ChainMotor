@@ -7,8 +7,13 @@ import java.util.Objects;
 
 /**
  * Classe principale d’éxécution
- * @see Main
  * lang = fr
+ * @see MaximumSpanningTree
+ * @see fr.uge.tree
+ * @see fr.uge.main
+ * @see fr.uge.main.FileLine
+ * @see fr.uge.main.BestPath
+ * @see fr.uge.main.Test
  * @author Mamadou BA
  * @author Cédric MARIYA CONSTANTINE
  * @author Abdelrahim RICHE
@@ -16,6 +21,11 @@ import java.util.Objects;
  * @author Yacine ZEMOUCHE
  */
 public class Main {
+    /**
+     * Constructeur par défaut
+     */
+    public Main() {
+    }
     /**
      * Méthode principale :
      * @param args
