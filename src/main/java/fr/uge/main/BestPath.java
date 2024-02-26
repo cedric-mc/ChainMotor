@@ -77,6 +77,19 @@ public class BestPath {
         return minimumSimilarity;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(FileLine.BEST_PATH.line).append("\n");
+        sb.append(FileLine.START_WORD.line).append(maximumSpanningTree.getStartWord()).append("\n");
+        sb.append(FileLine.END_WORD.line).append(maximumSpanningTree.getEndWord()).append("\n");
+        sb.append(FileLine.BEST_PATH_EDGES.line).append("\n");
+        for (Edge edge : bestPathEdges) {
+            sb.append(String.format(FileLine.EDGE_FORMAT.line, edge.sourceWord().word(), edge.targetWord(), edge.similarity())).append("\n");
+        }
+        return sb.toString();
+    }
+
     /**
      * Méthode pour écrire le chemin le plus court dans un fichier
      *

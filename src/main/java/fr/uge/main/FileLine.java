@@ -39,6 +39,10 @@ public enum FileLine {
      */
     EDGE_FORMAT("%s_%s,%.2f"),
     /**
+     * Lignes de fichier : format d'une arête dans le fichier de sortie
+     */
+    EDGE_FORMAT_OUTPUT("%s -> %s : %.2f"),
+    /**
      * Lignes de fichier : endWord
      */
     END_WORD("endWord : "),
