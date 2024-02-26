@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.nio.file.attribute.PosixFilePermission;
 import java.util.*;
 
 /**
@@ -103,6 +104,13 @@ public class BestPath {
         try (BufferedWriter bw = Files.newBufferedWriter(path, StandardOpenOption.CREATE, StandardOpenOption.WRITE)) {
             // Créer un écrivain de fichier
             bw.write(toString()); // Écrire le chemin dans le fichier
+            // Définir les permissions
+            Set<PosixFilePermission> perms = Set.of(
+                    PosixFilePermission.OWNER_READ, PosixFilePermission.OWNER_WRITE,
+                    PosixFilePermission.GROUP_READ, PosixFilePermission.GROUP_WRITE,
+                    PosixFilePermission.OTHERS_READ, PosixFilePermission.OTHERS_WRITE
+            );
+            Files.setPosixFilePermissions(path, perms); // Définir les permissions
         } catch (IOException e) {
             e.printStackTrace();
         }
