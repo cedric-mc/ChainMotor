@@ -47,7 +47,7 @@ public class Main {
             return;
         }
         // Si le nombre d'arguments est supérieur à 2 (2 arguments maximum)
-        if (args.length > 2) {
+        if (args.length != 1 || args.length != 2) {
             System.out.println("Vérifier l'utilisation avec l'argument --help\n");
             return;
         }
