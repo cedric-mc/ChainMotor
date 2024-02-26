@@ -46,9 +46,9 @@ public class Main {
                     + "Exemple : java -cp ChainMotor/target/classes fr.uge.main.Main game_data_pseudoDuTesst.txt mst_pseudoDuTesst.txt\n");
             return;
         }
-        // Si le nombre d'arguments est supérieur à 2 (2 arguments maximum)
-        if (args.length != 1 || args.length != 2) {
-            System.out.println("Vérifier l'utilisation avec l'argument --help\n");
+        // Si le nombre d'arguments n'est égal ni à 1 ni à 2
+        if (args.length != 1 && args.length != 2) {
+            System.out.println("Erreur : Nombre d'arguments incorrect");
             return;
         }
         // Récupération du pseudo du joueur à partir du nom du fichier
