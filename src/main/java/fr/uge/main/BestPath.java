@@ -85,7 +85,7 @@ public class BestPath {
         sb.append(FileLine.END_WORD.line).append(maximumSpanningTree.getEndWord()).append("\n");
         sb.append(FileLine.BEST_PATH_EDGES.line).append("\n");
         for (Edge edge : bestPathEdges) {
-            sb.append(String.format(FileLine.EDGE_FORMAT.line, edge.sourceWord().word(), edge.targetWord(), edge.similarity())).append("\n");
+            sb.append(String.format(FileLine.EDGE_FORMAT_OUTPUT.line, edge.sourceWord().word(), edge.targetWord(), edge.similarity())).append("\n");
         }
         sb.append(FileLine.MINIMUM_SIMILARITY.line).append(minimumSimilarity).append("\n");
         sb.append(FileLine.EOF.line);
