@@ -75,7 +75,7 @@ public class Main {
         BestPath bestPath = new BestPath(maximumSpanningTree); // Trouver le chemin entre deux mots
         bestPath.printPathAndScore(); // Afficher le meilleur chemin et le score
         // Écrire le meilleur chemin dans un fichier
-        String bestPathFileName = FileLine.FOLDER.line + FileLine.BEST_PATH.line + pseudo + FileLine.GAME_FILE_EXTENSION.line;
+        String bestPathFileName = FileLine.FOLDER.line + FileLine.GAME_FILE_OUTPUT.line + pseudo + FileLine.GAME_FILE_EXTENSION.line;
         bestPath.writeBestPathToFile(bestPathFileName);
     }
 }
