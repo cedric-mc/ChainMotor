@@ -1,6 +1,4 @@
-package fr.uge.tree;
-
-import fr.uge.main.FileLine;
+package fr.uge.main;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -16,19 +14,19 @@ import java.util.regex.Pattern;
 /**
  * Classe pour représenter un arbre recouvrant maximal (MST) et effectuer des opérations sur cet arbre.
  * lang = fr
- * @see Word
- * @see Edge
- * @see FileLine
- * @see fr.uge.main
- * @see fr.uge.tree
- * @see fr.uge.main.Test
- * @see fr.uge.main.BestPath
- * @see fr.uge.main.Main
+ *
  * @author Mamadou BA
  * @author Cédric MARIYA CONSTANTINE
  * @author Abdelrahim RICHE
  * @author Vincent SOUSA
  * @author Yacine ZEMOUCHE
+ * @see Word
+ * @see Edge
+ * @see FileLine
+ * @see fr.uge.main
+ * @see fr.uge.main.Test
+ * @see fr.uge.main.BestPath
+ * @see fr.uge.main.Main
  */
 public class MaximumSpanningTree {
     /**
@@ -50,9 +48,10 @@ public class MaximumSpanningTree {
 
     /**
      * Constructeur pour initialiser un arbre recouvrant maximal
-     * @param startWord Mot de départ
-     * @param endWord  Mot de fin
-     * @param edgesMST Arêtes de l’arbre de recouvrement minimal
+     *
+     * @param startWord   Mot de départ
+     * @param endWord     Mot de fin
+     * @param edgesMST    Arêtes de l’arbre de recouvrement minimal
      * @param bannedWords Mots interdits
      */
     public MaximumSpanningTree(Word startWord, Word endWord, List<Edge> edgesMST, Set<Word> bannedWords) {
@@ -64,8 +63,9 @@ public class MaximumSpanningTree {
 
     /**
      * Constructeur pour initialiser un arbre recouvrant maximal sans arêtes
+     *
      * @param startWord Mot de départ
-     * @param endWord Mot de fin
+     * @param endWord   Mot de fin
      */
     public MaximumSpanningTree(Word startWord, Word endWord) {
         this(startWord, endWord, new ArrayList<>(), new HashSet<>());
@@ -73,6 +73,7 @@ public class MaximumSpanningTree {
 
     /**
      * Charge un arbre recouvrant maximal à partir d’un fichier
+     *
      * @param file Chemin du fichier
      * @return MaximumSpanningTree
      * @throws IOException Déclenche une exception d’entrée/sortie
@@ -108,7 +109,47 @@ public class MaximumSpanningTree {
     }
 
     /**
+     * Méthode pour diviser les mots et la similarité
+     *
+     * @param edges Liste d’arêtes
+     * @param parts Parties de la ligne
+     */
+    private static void splitWordsAndSimilarity(List<Edge> edges, String[] parts) {
+        String[] words = parts[0].split(FileLine.WORDS_SEPARATOR_OUTPUT.line); // Diviser les mots de l’arête
+        // Créer les mots source et cible
+        Word sourceWord = new Word(words[0]);
+        Word targetWord = new Word(words[1]);
+        double similarity = Double.parseDouble(parts[1]); // Récupérer la similarité
+        edges.add(new Edge(sourceWord, similarity, targetWord)); // Ajouter l’arête à la liste
+    }
+
+    /**
+     * Méthode pour le premier fichier et le MaximumSpanningTree du premier tour (soit mot de départ et mot de fin et la seule arête)
+     *
+     * @param fileC Chemin du fichier
+     * @return MaximumSpanningTree
+     * @throws IOException Charge un arbre recouvrant maximal à partir d’un fichier
+     */
+    public static MaximumSpanningTree createMaximumSpanningTree(String fileC) throws IOException {
+        List<Edge> edges = new ArrayList<>(); // Créer une liste pour stocker les arêtes
+        Path readerPath = Path.of(fileC); // Créer un objet Path pour le fichier
+        BufferedReader br = Files.newBufferedReader(readerPath); // Créer un objet BufferedReader pour lire le fichier
+        br.readLine(); // Ligne 1 : "Mots de départ :"
+        Word startWord = new Word(br.readLine().split(FileLine.SIMILARITY_SEPARATOR.line)[0].trim()); // Ligne 2 : "voiture,561464"
+        Word endWord = new Word(br.readLine().split(FileLine.SIMILARITY_SEPARATOR.line)[0].trim()); // Ligne 3 : "bus,1715044"
+        br.readLine(); // Ligne 4 : "Liste des mots :"
+        br.readLine(); // Ligne 5 : "voiture, offset: 561464"
+        br.readLine(); // Ligne 6 : "bus, offset: 1715044"
+        br.readLine(); // Ligne 7 : "Distance entre les mots :"
+        String[] parts = br.readLine().split(FileLine.SIMILARITY_C_FILE_SEPARATOR.line); // Ligne 8 : "voiture_bus, distance:0.5"
+        splitWordsAndSimilarity(edges, parts); // Ajouter l’arête à la liste
+        br.close(); // Fermer le fichier
+        return new MaximumSpanningTree(startWord, endWord, edges, new HashSet<>()); // Retourner un nouvel objet MaximumSpanningTree
+    }
+
+    /**
      * Méthode pour obtenir le mot de départ
+     *
      * @return Word Mot de départ
      */
     public Word getStartWord() {
@@ -117,6 +158,7 @@ public class MaximumSpanningTree {
 
     /**
      * Méthode pour obtenir le mot de fin
+     *
      * @return Word Mot de fin
      */
     public Word getEndWord() {
@@ -125,6 +167,7 @@ public class MaximumSpanningTree {
 
     /**
      * Méthode pour obtenir les arêtes de l’arbre de recouvrement minimal
+     *
      * @return La liste d'arêtes de l’arbre de recouvrement minimal
      */
     public List<Edge> getEdgesMST() {
@@ -133,6 +176,7 @@ public class MaximumSpanningTree {
 
     /**
      * Méthode pour obtenir les mots interdits
+     *
      * @return l'ensemble de mots interdits
      */
     public Set<Word> getBannedWords() {
@@ -141,6 +185,7 @@ public class MaximumSpanningTree {
 
     /**
      * Méthode pour ajouter une arête à l’arbre recouvrant maximal
+     *
      * @param edge Arête à ajouter
      */
     public void addEdge(Edge edge) {
@@ -149,6 +194,7 @@ public class MaximumSpanningTree {
 
     /**
      * Méthode pour supprimer une arête de l’arbre recouvrant maximal
+     *
      * @param edge Arête à supprimer
      */
     public void removeEdge(Edge edge) {
@@ -157,6 +203,7 @@ public class MaximumSpanningTree {
 
     /**
      * Méthode pour obtenir une représentation textuelle de l’arbre recouvrant maximal
+     *
      * @return String Représentation textuelle de l’arbre recouvrant maximal
      */
     @Override
@@ -181,44 +228,8 @@ public class MaximumSpanningTree {
     }
 
     /**
-     * Méthode pour diviser les mots et la similarité
-     * @param edges Liste d’arêtes
-     * @param parts Parties de la ligne
-     */
-    private static void splitWordsAndSimilarity(List<Edge> edges, String[] parts) {
-        String[] words = parts[0].split(FileLine.WORDS_SEPARATOR_OUTPUT.line); // Diviser les mots de l’arête
-        // Créer les mots source et cible
-        Word sourceWord = new Word(words[0]);
-        Word targetWord = new Word(words[1]);
-        double similarity = Double.parseDouble(parts[1]); // Récupérer la similarité
-        edges.add(new Edge(sourceWord, similarity, targetWord)); // Ajouter l’arête à la liste
-    }
-
-    /**
-     * Méthode pour le premier fichier et le MaximumSpanningTree du premier tour (soit mot de départ et mot de fin et la seule arête)
-     * @param fileC Chemin du fichier
-     * @return MaximumSpanningTree
-     * @throws IOException Charge un arbre recouvrant maximal à partir d’un fichier
-     */
-    public static MaximumSpanningTree createMaximumSpanningTree(String fileC) throws IOException {
-        List<Edge> edges = new ArrayList<>(); // Créer une liste pour stocker les arêtes
-        Path readerPath = Path.of(fileC); // Créer un objet Path pour le fichier
-        BufferedReader br = Files.newBufferedReader(readerPath); // Créer un objet BufferedReader pour lire le fichier
-        br.readLine(); // Ligne 1 : "Mots de départ :"
-        Word startWord = new Word(br.readLine().split(FileLine.SIMILARITY_SEPARATOR.line)[0].trim()); // Ligne 2 : "voiture,561464"
-        Word endWord = new Word(br.readLine().split(FileLine.SIMILARITY_SEPARATOR.line)[0].trim()); // Ligne 3 : "bus,1715044"
-        br.readLine(); // Ligne 4 : "Liste des mots :"
-        br.readLine(); // Ligne 5 : "voiture, offset: 561464"
-        br.readLine(); // Ligne 6 : "bus, offset: 1715044"
-        br.readLine(); // Ligne 7 : "Distance entre les mots :"
-        String[] parts = br.readLine().split(FileLine.SIMILARITY_C_FILE_SEPARATOR.line); // Ligne 8 : "voiture_bus, distance:0.5"
-        splitWordsAndSimilarity(edges, parts); // Ajouter l’arête à la liste
-        br.close(); // Fermer le fichier
-        return new MaximumSpanningTree(startWord, endWord, edges, new HashSet<>()); // Retourner un nouvel objet MaximumSpanningTree
-    }
-
-    /**
      * Méthode pour ajouter les arêtes d’un mot à l’arbre recouvrant maximal
+     *
      * @param file Chemin du fichier
      * @throws IOException Charge et ajoute les arêtes d’un mot à l’arbre recouvrant maximal
      */
@@ -263,6 +274,7 @@ public class MaximumSpanningTree {
 
     /**
      * Méthode pour exporter l’arbre recouvrant maximal dans un fichier
+     *
      * @param file Nom du fichier
      */
     public void exportMaximumSpanningTreeToFile(String file) {
@@ -277,9 +289,10 @@ public class MaximumSpanningTree {
 
     /**
      * Méthode DFS pour détecter un cycle et recueillir les arêtes du cycle
-     * @param current Mot actuel
-     * @param parent Mot parent
-     * @param visited Mots visités
+     *
+     * @param current    Mot actuel
+     * @param parent     Mot parent
+     * @param visited    Mots visités
      * @param cycleEdges Arêtes du cycle
      * @return boolean Méthode DFS pour détecter un cycle et recueillir les arêtes du cycle
      */
@@ -396,6 +409,7 @@ public class MaximumSpanningTree {
 
     /**
      * Méthode pour connaître si le mot à ajouter a été ajouter ou non dans le MST
+     *
      * @param word Mot à ajouter
      * @return boolean Vérifie si un mot a été ajouté à l’arbre recouvrant maximal
      */
@@ -407,6 +421,7 @@ public class MaximumSpanningTree {
 
     /**
      * Méthode pour vérifier si une arête contient un mot interdit
+     *
      * @param edge Arête à vérifier
      * @return boolean Vérifie si une arête contient un mot interdit
      */
@@ -419,9 +434,10 @@ public class MaximumSpanningTree {
 
     /**
      * Méthode pour ajouter un mot à l’arbre recouvrant maximal
+     *
      * @param addWordAndEdges Mot à ajouter et ses arêtes
      *
-     * Ajoute un mot à l’arbre recouvrant maximal
+     *                        Ajoute un mot à l’arbre recouvrant maximal
      */
     public void addWord(Map<Word, List<Edge>> addWordAndEdges) {
         // Créer une liste pour stocker les nouvelles arêtes à ajouter

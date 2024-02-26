@@ -1,20 +1,21 @@
-package fr.uge.tree;
+package fr.uge.main;
 
 import java.util.Objects;
 
 /**
  * Classe qui représente une arête dans un arbre recouvrant maximal
+ *
  * @param sourceWord le mot source
  * @param similarity la similarité
  * @param targetWord le mot cible
- * lang = fr
- * @see MaximumSpanningTree
- * @see Word
+ *                   lang = fr
  * @author Mamadou BA
  * @author Cédric MARIYA CONSTANTINE
  * @author Abdelrahim RICHE
  * @author Vincent SOUSA
  * @author Yacine ZEMOUCHE
+ * @see MaximumSpanningTree
+ * @see Word
  */
 public record Edge(Word sourceWord, double similarity, Word targetWord) {
 
@@ -29,11 +30,8 @@ public record Edge(Word sourceWord, double similarity, Word targetWord) {
     }
 
     /**
-     * @param o
-     * o : l'objet à comparer
-     * @return
-     *
-     * Méthode qui compare deux objets
+     * @param o o : l'objet à comparer
+     * @return Méthode qui compare deux objets
      */
     @Override
     public boolean equals(Object o) {
@@ -44,9 +42,7 @@ public record Edge(Word sourceWord, double similarity, Word targetWord) {
     }
 
     /**
-     * @return
-     *
-     * Méthode qui retourne le hashcode de l'objet
+     * @return Méthode qui retourne le hashcode de l'objet
      */
     @Override
     public int hashCode() {

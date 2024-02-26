@@ -3,14 +3,15 @@ package fr.uge.main;
 /**
  * Enumération des lignes de fichier, pour une meilleure lisibilité
  * lang = fr
- * @see fr.uge.main.BestPath
- * @see fr.uge.main.Main
- * @see fr.uge.tree.MaximumSpanningTree
+ *
  * @author Mamadou BA
  * @author Cédric MARIYA CONSTANTINE
  * @author Abdelrahim RICHE
  * @author Vincent SOUSA
  * @author Yacine ZEMOUCHE
+ * @see fr.uge.main.BestPath
+ * @see fr.uge.main.Main
+ * @see MaximumSpanningTree
  */
 public enum FileLine {
     /**
@@ -101,6 +102,7 @@ public enum FileLine {
 
     /**
      * Constructeur
+     *
      * @param line Ligne de fichier
      */
     FileLine(String line) {

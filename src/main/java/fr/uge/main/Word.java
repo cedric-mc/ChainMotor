@@ -1,26 +1,26 @@
-package fr.uge.tree;
+package fr.uge.main;
 
 import java.util.Objects;
 
 /**
  * Classe qui représente un mot dans un arbre recouvrant maximal
+ *
  * @param word Mot
- * word : Représente un mot dans l’arbre recouvrant maximal
- * lang = fr
- * @see MaximumSpanningTree
- * @see Edge
+ *             word : Représente un mot dans l’arbre recouvrant maximal
+ *             lang = fr
  * @author Mamadou BA
  * @author Cédric MARIYA CONSTANTINE
  * @author Abdelrahim RICHE
  * @author Vincent SOUSA
  * @author Yacine ZEMOUCHE
+ * @see MaximumSpanningTree
+ * @see Edge
  */
 public record Word(String word) {
 
     /**
-     * @return the word
-     *
      * Méthode toString pour afficher un mot
+     * @return the word
      */
     @Override
     public String toString() {
@@ -28,11 +28,9 @@ public record Word(String word) {
     }
 
     /**
-     * @param o
-     * o : Objet à comparer
-     * @return
-     *
      * Méthode equals pour comparer deux mots
+     * @param o o : Objet à comparer
+     * @return Méthode equals pour comparer deux mots
      */
     @Override
     public boolean equals(Object o) {
