@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.nio.file.attribute.PosixFilePermission;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -282,6 +283,13 @@ public class MaximumSpanningTree {
         // Créer un objet BufferedWriter pour écrire dans le fichier avec les options de création et d’écriture
         try (BufferedWriter bw = Files.newBufferedWriter(path, StandardOpenOption.CREATE, StandardOpenOption.WRITE)) {
             bw.write(this.toString()); // Écrire l’arbre recouvrant maximal dans le fichier
+            // Définir les permissions
+            Set<PosixFilePermission> perms = Set.of(
+                    PosixFilePermission.OWNER_READ, PosixFilePermission.OWNER_WRITE,
+                    PosixFilePermission.GROUP_READ, PosixFilePermission.GROUP_WRITE,
+                    PosixFilePermission.OTHERS_READ, PosixFilePermission.OTHERS_WRITE
+            );
+            Files.setPosixFilePermissions(path, perms); // Définir les permissions
         } catch (IOException e) {
             e.printStackTrace();
         }
