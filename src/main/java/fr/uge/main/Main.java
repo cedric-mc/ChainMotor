@@ -37,14 +37,13 @@ public class Main {
                     "Détails de l'utilisation : java -cp ChainMotor/target/classes fr.uge.main.Main --help\n");
             return;
         }
-        if (Objects.equals(args[0], "--help")) { // Si l'argument est --help
-            StringBuilder help = new StringBuilder();
-            help.append("Utilisation : java -cp ChainMotor/target/classes fr.uge.main.Main <fichier-c> <fichier-java>\n");
-            help.append("fichier-c : Nom du fichier C : game_data_[pseudo].txt\n");
-            help.append("fichier-java (facultatif) : Nom du fichier Java : mst_[pseudo].txt\n");
-            help.append("Attention : On doit mettre l'argument <fichier-java> si on veut ajouter un mot\n");
-            help.append("Exemple : java -cp ChainMotor/target/classes fr.uge.main.Main game_data_pseudoDuTesst.txt\n");
-            help.append("Exemple : java -cp ChainMotor/target/classes fr.uge.main.Main game_data_pseudoDuTesst.txt mst_pseudoDuTesst.txt\n");
+        if (args.length == 1 && Objects.equals(args[0], "--help")) { // Si l'argument est --help
+            System.out.println("Utilisation : java -cp ChainMotor/target/classes fr.uge.main.Main <fichier-c> <fichier-java>\n"
+                    + "fichier-c : Nom du fichier C : game_data_[pseudo].txt\n"
+                    + "fichier-java (facultatif) : Nom du fichier Java : mst_[pseudo].txt\n"
+                    + "Attention : On doit mettre l'argument <fichier-java> si on veut ajouter un mot\n"
+                    + "Exemple : java -cp ChainMotor/target/classes fr.uge.main.Main game_data_pseudoDuTesst.txt\n"
+                    + "Exemple : java -cp ChainMotor/target/classes fr.uge.main.Main game_data_pseudoDuTesst.txt mst_pseudoDuTesst.txt\n");
             return;
         }
         // Si le nombre d'arguments est supérieur à 2 (2 arguments maximum)
