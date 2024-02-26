@@ -72,6 +72,32 @@ public class MaximumSpanningTree {
     }
 
     /**
+     * Méthode pour obtenir une représentation textuelle de l’arbre recouvrant maximal
+     *
+     * @return String Représentation textuelle de l’arbre recouvrant maximal
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder(); // Créer un objet StringBuilder
+        sb.append(FileLine.MAXIMUM_SPANNING_TREE.line).append("\n"); // Ajouter la ligne "MaximumSpanningTree :"
+        // Ajouter les mots de départ et de fin
+        sb.append(FileLine.START_WORD.line).append(startWord).append("\n");
+        sb.append(FileLine.END_WORD.line).append(endWord).append("\n");
+        // Ajouter les arêtes de l’arbre
+        sb.append(FileLine.EDGES_MST.line).append("\n");
+        for (Edge edge : edgesMST) { // Parcourir chaque arête
+            sb.append(String.format(FileLine.EDGE_FORMAT.line, edge.sourceWord().word(), edge.targetWord(), edge.similarity())).append("\n");
+        }
+        // Ajouter les mots interdits
+        sb.append(FileLine.BANNED_WORDS.line).append("\n");
+        for (Word word : bannedWords) { // Parcourir chaque mot interdit
+            sb.append(word.word()).append("\n");
+        }
+        sb.append(FileLine.EOF.line);
+        return sb.toString();
+    }
+
+    /**
      * Charge un arbre recouvrant maximal à partir d’un fichier
      *
      * @param file Chemin du fichier
@@ -199,32 +225,6 @@ public class MaximumSpanningTree {
      */
     public void removeEdge(Edge edge) {
         edgesMST.remove(edge);
-    }
-
-    /**
-     * Méthode pour obtenir une représentation textuelle de l’arbre recouvrant maximal
-     *
-     * @return String Représentation textuelle de l’arbre recouvrant maximal
-     */
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder(); // Créer un objet StringBuilder
-        sb.append(FileLine.MAXIMUM_SPANNING_TREE.line).append("\n"); // Ajouter la ligne "MaximumSpanningTree :"
-        // Ajouter les mots de départ et de fin
-        sb.append(FileLine.START_WORD.line).append(startWord).append("\n");
-        sb.append(FileLine.END_WORD.line).append(endWord).append("\n");
-        // Ajouter les arêtes de l’arbre
-        sb.append(FileLine.EDGES_MST.line).append("\n");
-        for (Edge edge : edgesMST) { // Parcourir chaque arête
-            sb.append(String.format(FileLine.EDGE_FORMAT.line, edge.sourceWord().word(), edge.targetWord(), edge.similarity())).append("\n");
-        }
-        // Ajouter les mots interdits
-        sb.append(FileLine.BANNED_WORDS.line).append("\n");
-        for (Word word : bannedWords) { // Parcourir chaque mot interdit
-            sb.append(word.word()).append("\n");
-        }
-        sb.append(FileLine.EOF.line);
-        return sb.toString();
     }
 
     /**
