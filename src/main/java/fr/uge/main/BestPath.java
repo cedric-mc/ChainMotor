@@ -87,6 +87,8 @@ public class BestPath {
         for (Edge edge : bestPathEdges) {
             sb.append(String.format(FileLine.EDGE_FORMAT.line, edge.sourceWord().word(), edge.targetWord(), edge.similarity())).append("\n");
         }
+        sb.append(FileLine.MINIMUM_SIMILARITY.line).append(minimumSimilarity).append("\n");
+        sb.append(FileLine.EOF.line);
         return sb.toString();
     }
 
@@ -100,21 +102,7 @@ public class BestPath {
         Path path = Path.of(file);
         try (BufferedWriter bw = Files.newBufferedWriter(path, StandardOpenOption.CREATE, StandardOpenOption.WRITE)) {
             // Créer un écrivain de fichier
-            bw.write(FileLine.BEST_PATH.line); // Écrire l’Objet
-            bw.newLine(); // Sauter une ligne
-            bw.write(FileLine.START_WORD.line + maximumSpanningTree.getStartWord()); // Écrire le mot de départ
-            bw.newLine();
-            bw.write(FileLine.END_WORD.line + maximumSpanningTree.getEndWord()); // Écrire le mot de fin
-            bw.newLine();
-            bw.write(FileLine.BEST_PATH_EDGES.line); // Écrire les arêtes du chemin
-            bw.newLine();
-            for (Edge edge : bestPathEdges) { // Parcourir chaque arête du chemin
-                bw.write(String.format(FileLine.EDGE_FORMAT.line, edge.sourceWord().word(), edge.targetWord(), edge.similarity()));
-                bw.newLine();
-            }
-            bw.write(FileLine.MINIMUM_SIMILARITY.line + minimumSimilarity); // Écrire la similarité minimale du chemin
-            bw.newLine();
-            bw.write(FileLine.EOF.line); // Marquer la fin du fichier
+            bw.write(toString()); // Écrire le chemin dans le fichier
         } catch (IOException e) {
             e.printStackTrace();
         }
