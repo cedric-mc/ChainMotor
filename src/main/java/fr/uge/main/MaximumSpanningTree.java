@@ -3,6 +3,7 @@ package fr.uge.main;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -239,26 +240,26 @@ public class MaximumSpanningTree {
         List<Edge> edges = new ArrayList<>(); // Créer une liste pour stocker les arêtes
         Path filePath = Path.of(file); // Créer un objet Path pour le fichier
         BufferedReader br = Files.newBufferedReader(filePath); // Créer un objet BufferedReader pour lire le fichier
-        String line;
         br.readLine(); // Ligne 1 : "Mots de départ :"
         br.readLine(); // Ligne 2 : "voiture,561464"
         br.readLine(); // Ligne 3 : "bus,1715044"
         br.readLine(); // Ligne 4 : "Liste des mots :"
         // Parcourir les lignes jusqu’à la ligne "Distance entre les mots :"
+        String line;
         while (!Objects.equals(line = br.readLine(), FileLine.DISTANCE_BETWEEN_WORDS.line)) {
             // On récupère les mots uniquement
-            String[] words = line.split(FileLine.SIMILARITY_SEPARATOR.line);
+            String[] words = FileLine.SIMILARITY_SEPARATOR.line.split(line);
             addWord = new Word(words[0]);
         }
         br.readLine(); // Ligne 5 : "Distance entre les mots :"
         // Parcourir les lignes jusqu’à la fin du fichier
         while ((line = br.readLine()) != null) {
-            assert addWord != null;
+            if (addWord == null) throw new AssertionError();
             Word sourceWord;
             Word targetWord;
             double similarity;
-            if (line.contains(addWord.word())) {
-                String[] parts = line.split(FileLine.SIMILARITY_C_FILE_SEPARATOR.line);
+            if (line.contains(addWord.word())) { // Si le mot à ajouter est dans la ligne
+                String[] parts = FileLine.SIMILARITY_C_FILE_SEPARATOR.line.split(line); // Diviser la ligne en parties (mots et similarité)
                 sourceWord = new Word(parts[0].split(FileLine.WORDS_SEPARATOR_OUTPUT.line)[0]);
                 targetWord = new Word(parts[0].split(FileLine.WORDS_SEPARATOR_OUTPUT.line)[1]);
                 similarity = Double.parseDouble(parts[1]);
@@ -266,7 +267,7 @@ public class MaximumSpanningTree {
             }
         }
         br.close(); // Fermer le fichier
-        assert addWord != null;
+        if (addWord == null) throw new AssertionError();
         // Créer une carte pour stocker le mot à ajouter et les arêtes et appeler la méthode addWord
         Map<Word, List<Edge>> wordMap = new HashMap<>(Map.of(addWord, edges));
         System.out.println("wordMap : " + wordMap);
@@ -277,22 +278,21 @@ public class MaximumSpanningTree {
      * Méthode pour exporter l’arbre recouvrant maximal dans un fichier
      *
      * @param file Nom du fichier
+     * @throws IOException Exporte l’arbre recouvrant maximal dans un fichier
      */
-    public void exportMaximumSpanningTreeToFile(String file) {
+    public void exportMaximumSpanningTreeToFile(String file) throws IOException {
         Path path = Paths.get(file); // Créer un objet Path pour le fichier
         // Créer un objet BufferedWriter pour écrire dans le fichier avec les options de création et d’écriture
-        try (BufferedWriter bw = Files.newBufferedWriter(path, StandardOpenOption.CREATE, StandardOpenOption.WRITE)) {
-            bw.write(this.toString()); // Écrire l’arbre recouvrant maximal dans le fichier
-            // Définir les permissions
-            Set<PosixFilePermission> perms = Set.of(
-                    PosixFilePermission.OWNER_READ, PosixFilePermission.OWNER_WRITE,
-                    PosixFilePermission.GROUP_READ, PosixFilePermission.GROUP_WRITE,
-                    PosixFilePermission.OTHERS_READ, PosixFilePermission.OTHERS_WRITE
-            );
-            Files.setPosixFilePermissions(path, perms); // Définir les permissions
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        BufferedWriter bufferedWriter = Files.newBufferedWriter(path, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.WRITE);
+        bufferedWriter.write(this.toString()); // Écrire l’arbre recouvrant maximal dans le fichier
+        // Définir les permissions
+        Set<PosixFilePermission> perms = Set.of(
+                PosixFilePermission.OWNER_READ, PosixFilePermission.OWNER_WRITE,
+                PosixFilePermission.GROUP_READ, PosixFilePermission.GROUP_WRITE,
+                PosixFilePermission.OTHERS_READ, PosixFilePermission.OTHERS_WRITE
+        );
+        Files.setPosixFilePermissions(path, perms); // Définir les permissions
+        bufferedWriter.close(); // Fermer le fichier
     }
 
     /**

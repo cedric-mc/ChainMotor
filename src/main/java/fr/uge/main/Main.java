@@ -61,6 +61,7 @@ public class Main {
             // Si le nombre d'arguments est égal à 1 et que l'argument n'est pas --help
             // Création de l’arbre recouvrant maximal et exportation dans un fichier
             maximumSpanningTree = MaximumSpanningTree.createMaximumSpanningTree(args[0]);
+            System.out.println("MaximumSpanningTree : " + maximumSpanningTree);
             fileName = FileLine.FOLDER.line + FileLine.GAME_FILE_JAVA.line + pseudo + FileLine.GAME_FILE_EXTENSION.line;
         } else { // Sinon, on charge l’arbre recouvrant maximal à partir du fichier (on a 2 arguments)
             fileName = args[1];

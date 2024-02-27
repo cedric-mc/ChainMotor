@@ -103,7 +103,7 @@ Des documents complémentaire tel que le sujet et les consignes du projet sont d
 
 ### [@Mariya Constantine Cédric](https://github.com/cedric-mc/)
 
-### Co-auteur :
+### Co-auteurs :
 
 #### [@Ba Mamadou](https://github.com/mamadou186/)
 
