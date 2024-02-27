@@ -2,8 +2,10 @@ package fr.uge.main;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.nio.file.attribute.PosixFilePermission;
 import java.util.*;
@@ -97,22 +99,35 @@ public class BestPath {
      * Méthode pour écrire le chemin le plus court dans un fichier
      *
      * @param file Fichier de sortie
+     * @throws IOException Erreur d’écriture dans le fichier
      */
-    public void writeBestPathToFile(String file) {
-        // Si le fichier n’existe pas, le créer
-        Path path = Path.of(file);
-        try (BufferedWriter bw = Files.newBufferedWriter(path, StandardOpenOption.CREATE, StandardOpenOption.WRITE)) {
-            // Créer un écrivain de fichier
-            bw.write(toString()); // Écrire le chemin dans le fichier
+    public void writeBestPathToFile(String file) throws IOException {
+        // Créer un objet Path pour le fichier et un objet BufferedWriter pour écrire dans le fichier
+        Path path = Paths.get(file);
+        BufferedWriter bufferedWriter = null;
+        try { // Créer un objet BufferedWriter pour écrire dans le fichier
+            bufferedWriter = Files.newBufferedWriter(path, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.WRITE);
+            bufferedWriter.write(toString()); // Écrire l’arbre recouvrant maximal dans le fichier
+
             // Définir les permissions
             Set<PosixFilePermission> perms = Set.of(
                     PosixFilePermission.OWNER_READ, PosixFilePermission.OWNER_WRITE,
                     PosixFilePermission.GROUP_READ, PosixFilePermission.GROUP_WRITE,
                     PosixFilePermission.OTHERS_READ, PosixFilePermission.OTHERS_WRITE
             );
-            Files.setPosixFilePermissions(path, perms); // Définir les permissions
+            Files.setPosixFilePermissions(path, perms);
         } catch (IOException e) {
-            e.printStackTrace();
+            // Handle exception
+            throw new IOException("Error writing to file", e);
+        } finally {
+            if (bufferedWriter != null) {
+                try {
+                    bufferedWriter.close(); // Fermer le fichier
+                } catch (IOException e) {
+                    // Handle exception
+                    throw new IOException("Error closing BufferedWriter", e);
+                }
+            }
         }
     }
 

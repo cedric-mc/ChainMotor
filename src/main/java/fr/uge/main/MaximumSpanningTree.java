@@ -281,18 +281,32 @@ public class MaximumSpanningTree {
      * @throws IOException Exporte l’arbre recouvrant maximal dans un fichier
      */
     public void exportMaximumSpanningTreeToFile(String file) throws IOException {
-        Path path = Paths.get(file); // Créer un objet Path pour le fichier
-        // Créer un objet BufferedWriter pour écrire dans le fichier avec les options de création et d’écriture
-        BufferedWriter bufferedWriter = Files.newBufferedWriter(path, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.WRITE);
-        bufferedWriter.write(this.toString()); // Écrire l’arbre recouvrant maximal dans le fichier
-        // Définir les permissions
-        Set<PosixFilePermission> perms = Set.of(
-                PosixFilePermission.OWNER_READ, PosixFilePermission.OWNER_WRITE,
-                PosixFilePermission.GROUP_READ, PosixFilePermission.GROUP_WRITE,
-                PosixFilePermission.OTHERS_READ, PosixFilePermission.OTHERS_WRITE
-        );
-        Files.setPosixFilePermissions(path, perms); // Définir les permissions
-        bufferedWriter.close(); // Fermer le fichier
+        // Créer un objet Path pour le fichier et un objet BufferedWriter pour écrire dans le fichier
+        Path path = Paths.get(file);
+        BufferedWriter bufferedWriter = null;
+        try { // Créer un objet BufferedWriter pour écrire dans le fichier
+            bufferedWriter = Files.newBufferedWriter(path, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.WRITE);
+            bufferedWriter.write(toString()); // Écrire l’arbre recouvrant maximal dans le fichier
+            // Définir les permissions
+            Set<PosixFilePermission> perms = Set.of(
+                    PosixFilePermission.OWNER_READ, PosixFilePermission.OWNER_WRITE,
+                    PosixFilePermission.GROUP_READ, PosixFilePermission.GROUP_WRITE,
+                    PosixFilePermission.OTHERS_READ, PosixFilePermission.OTHERS_WRITE
+            );
+            Files.setPosixFilePermissions(path, perms);
+        } catch (IOException e) {
+            // Handle exception
+            throw new IOException("Error writing to file", e);
+        } finally {
+            if (bufferedWriter != null) {
+                try {
+                    bufferedWriter.close(); // Fermer le fichier
+                } catch (IOException e) {
+                    // Handle exception
+                    throw new IOException("Error closing BufferedWriter", e);
+                }
+            }
+        }
     }
 
     /**
