@@ -1,0 +1,8 @@
+Mots de départ :
+panais,20162729
+plage,1082603
+Liste des mots :
+panais, offset: 20162729
+plage, offset: 1082603
+Distance entre les mots :
+panais_plage, distance: 36.58

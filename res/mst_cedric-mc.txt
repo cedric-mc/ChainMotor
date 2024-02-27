@@ -1,0 +1,7 @@
+MaximumSpanningTree :
+startWord : panais
+endWord : plage
+edgesMST :
+panais_plage,36,58
+bannedWords :
+EOF

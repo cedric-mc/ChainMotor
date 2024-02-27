@@ -15,10 +15,13 @@ Le score d’une chaîne de mots correspond au score de similarité de son **mai
 
 - Java 21 ou supérieur
 - Maven 3.9.0 ou supérieur
+- Système d'exploitation : Linux
 
 ## Informations complémentaires
 
 ### Format de fichier d'entrée et de sortie :
+
+Vous pouvez retrouver des exemples de fichiers d'entrée et de sortie dans le dossier `res` à la racine du projet.
 
 - Fichier d'entrée de **ScoreEngine** : `game_data_[pseudo].txt` :
     - La 1<sup>ère</sup> ligne contient uniquement "Mots de départ :".
@@ -45,7 +48,7 @@ Le score d’une chaîne de mots correspond au score de similarité de son **mai
     - La 2<sup>ème</sup> ligne contient le mot de départ de la façon suivante : "startWord : _mot_".
     - La 3<sup>ème</sup> ligne contient le mot d'arrivé de la façon suivante : "endWord : _mot_".
     - La 4<sup>ème</sup> ligne contient uniquement "bestPathEdges :" pour indiquer le début de la liste des arêtes du meilleur chemin.
-    - Les lignes suivantes contiennent les arêtes du meilleur chemin selon le format suivant : "mot1, mot2, distance: _similarité_".
+    - Les lignes suivantes contiennent les arêtes du meilleur chemin selon le format suivant : "mot1 -> mot2 : _similarité_".
     - Ensuite, il y a une ligne qui contient "MinimumSimilarity : _similarité_" pour indiquer la similarité minimale du meilleur chemin.
     - Enfin, il y a une ligne qui contient uniquement "EOF" pour indiquer la fin du fichier.
 
