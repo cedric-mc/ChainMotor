@@ -8,7 +8,7 @@ Le but est de réduire la taille de l’arbre pour faciliter la recherche de la 
 
 ### But du jeu
 
-Chaque joueur reçoit un mot de départ et un mot cible et propose des mots proches afin de créer une **chaîne de mots similaires** pour relier le mot de départ au mot cible.
+Chaque joueur reçoit un mot de départ et un mot cible, et propose des mots proches afin de créer une **chaîne de mots similaires** pour relier le mot de départ au mot cible.
 Le score d’une chaîne de mots correspond au score de similarité de son **maillon le plus faible** : peu importe la longueur de la chaîne, le but est que chaque mot ressemble autant que possible au précédent.
 
 ## Prérequis
