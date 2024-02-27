@@ -1,0 +1,7 @@
+BestPath :
+startWord : panais
+endWord : plage
+bestPathEdges :
+panais -> plage : 36,58
+MinimumSimilarity : 36.58
+EOFF
