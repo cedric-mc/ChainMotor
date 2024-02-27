@@ -248,18 +248,18 @@ public class MaximumSpanningTree {
         String line;
         while (!Objects.equals(line = br.readLine(), FileLine.DISTANCE_BETWEEN_WORDS.line)) {
             // On récupère les mots uniquement
-            String[] words = FileLine.SIMILARITY_SEPARATOR.line.split(line);
+            String[] words = line.split(FileLine.SIMILARITY_SEPARATOR.line);
             addWord = new Word(words[0]);
         }
         br.readLine(); // Ligne 5 : "Distance entre les mots :"
         // Parcourir les lignes jusqu’à la fin du fichier
         while ((line = br.readLine()) != null) {
-            if (addWord == null) throw new AssertionError();
+            assert addWord != null;
             Word sourceWord;
             Word targetWord;
             double similarity;
-            if (line.contains(addWord.word())) { // Si le mot à ajouter est dans la ligne
-                String[] parts = FileLine.SIMILARITY_C_FILE_SEPARATOR.line.split(line); // Diviser la ligne en parties (mots et similarité)
+            if (line.contains(addWord.word())) {
+                String[] parts = line.split(FileLine.SIMILARITY_C_FILE_SEPARATOR.line); // Diviser la ligne en parties (mots et similarité)
                 sourceWord = new Word(parts[0].split(FileLine.WORDS_SEPARATOR_OUTPUT.line)[0]);
                 targetWord = new Word(parts[0].split(FileLine.WORDS_SEPARATOR_OUTPUT.line)[1]);
                 similarity = Double.parseDouble(parts[1]);
@@ -283,10 +283,9 @@ public class MaximumSpanningTree {
     public void exportMaximumSpanningTreeToFile(String file) throws IOException {
         // Créer un objet Path pour le fichier et un objet BufferedWriter pour écrire dans le fichier
         Path path = Paths.get(file);
-        BufferedWriter bufferedWriter = null;
-        try { // Créer un objet BufferedWriter pour écrire dans le fichier
-            bufferedWriter = Files.newBufferedWriter(path, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.WRITE);
+        try (BufferedWriter bufferedWriter = Files.newBufferedWriter(path, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.WRITE);) { // Créer un objet BufferedWriter pour écrire dans le fichier
             bufferedWriter.write(toString()); // Écrire l’arbre recouvrant maximal dans le fichier
+            bufferedWriter.close(); // Fermer le fichier
             // Définir les permissions
             Set<PosixFilePermission> perms = Set.of(
                     PosixFilePermission.OWNER_READ, PosixFilePermission.OWNER_WRITE,
@@ -296,16 +295,7 @@ public class MaximumSpanningTree {
             Files.setPosixFilePermissions(path, perms);
         } catch (IOException e) {
             // Handle exception
-            throw new IOException("Error writing to file", e);
-        } finally {
-            if (bufferedWriter != null) {
-                try {
-                    bufferedWriter.close(); // Fermer le fichier
-                } catch (IOException e) {
-                    // Handle exception
-                    throw new IOException("Error closing BufferedWriter", e);
-                }
-            }
+            throw new IOException("Erreur dans l'écriture du fichier", e);
         }
     }
 

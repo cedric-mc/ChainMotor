@@ -104,11 +104,9 @@ public class BestPath {
     public void writeBestPathToFile(String file) throws IOException {
         // Créer un objet Path pour le fichier et un objet BufferedWriter pour écrire dans le fichier
         Path path = Paths.get(file);
-        BufferedWriter bufferedWriter = null;
-        try { // Créer un objet BufferedWriter pour écrire dans le fichier
-            bufferedWriter = Files.newBufferedWriter(path, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.WRITE);
+        try (BufferedWriter bufferedWriter = Files.newBufferedWriter(path, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.WRITE);) { // Créer un objet BufferedWriter pour écrire dans le fichier
             bufferedWriter.write(toString()); // Écrire l’arbre recouvrant maximal dans le fichier
-
+            bufferedWriter.close(); // Fermer le fichier
             // Définir les permissions
             Set<PosixFilePermission> perms = Set.of(
                     PosixFilePermission.OWNER_READ, PosixFilePermission.OWNER_WRITE,
@@ -118,16 +116,7 @@ public class BestPath {
             Files.setPosixFilePermissions(path, perms);
         } catch (IOException e) {
             // Handle exception
-            throw new IOException("Error writing to file", e);
-        } finally {
-            if (bufferedWriter != null) {
-                try {
-                    bufferedWriter.close(); // Fermer le fichier
-                } catch (IOException e) {
-                    // Handle exception
-                    throw new IOException("Error closing BufferedWriter", e);
-                }
-            }
+            throw new IOException("Erreur dans l'écriture du fichier", e);
         }
     }
 
