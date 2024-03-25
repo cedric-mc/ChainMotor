@@ -1,4 +1,8 @@
-package fr.uge.main;
+package fr.uge.semonkey.main;
+
+import fr.uge.semonkey.algorithm.BestPath;
+import fr.uge.semonkey.filemanagement.FileLine;
+import fr.uge.semonkey.model.MaximumSpanningTree;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -13,8 +17,8 @@ import java.util.Objects;
  * @author Vincent SOUSA
  * @author Yacine ZEMOUCHE
  * @see MaximumSpanningTree
- * @see fr.uge.main.FileLine
- * @see fr.uge.main.BestPath
+ * @see FileLine
+ * @see BestPath
  */
 public class Main {
     /**
@@ -34,16 +38,16 @@ public class Main {
     public static void main(String[] args) throws IOException {
         if (args.length == 0) { // S'il n'y a pas d'arguments
             System.out.println("Auteurs :\nMamadou BA\nCédric MARIYA CONSTANTINE\nAbdelrahim RICHE\nVincent SOUSA\nYacine ZEMOUCHE\n" +
-                    "Détails de l'utilisation : java -cp ChainMotor/target/classes fr.uge.main.Main --help\n");
+                    "Détails de l'utilisation : java -cp ChainMotor/target/classes fr.uge.semonkey.main.Main --help\n");
             return;
         }
         if (args.length == 1 && Objects.equals(args[0], "--help")) { // Si l'argument est --help
-            System.out.println("Utilisation : java -cp ChainMotor/target/classes fr.uge.main.Main <fichier-c> <fichier-java>\n"
+            System.out.println("Utilisation : java -cp ChainMotor/target/classes fr.uge.semonkey.main.Main <fichier-c> <fichier-java>\n"
                     + "fichier-c : Nom du fichier C : game_data_[pseudo].txt\n"
                     + "fichier-java (facultatif) : Nom du fichier Java : mst_[pseudo].txt\n"
                     + "Attention : On doit mettre l'argument <fichier-java> si on veut ajouter un mot\n"
-                    + "Exemple : java -cp ChainMotor/target/classes fr.uge.main.Main game_data_pseudoDuTesst.txt\n"
-                    + "Exemple : java -cp ChainMotor/target/classes fr.uge.main.Main game_data_pseudoDuTesst.txt mst_pseudoDuTesst.txt\n");
+                    + "Exemple : java -cp ChainMotor/target/classes fr.uge.semonkey.main.Main game_data_pseudoDuTesst.txt\n"
+                    + "Exemple : java -cp ChainMotor/target/classes fr.uge.semonkey.main.Main game_data_pseudoDuTesst.txt mst_pseudoDuTesst.txt\n");
             return;
         }
         // Si le nombre d'arguments n'est égal ni à 1 ni à 2

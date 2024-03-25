@@ -1,4 +1,9 @@
-package fr.uge.main;
+package fr.uge.semonkey.model;
+
+import fr.uge.semonkey.filemanagement.FileLine;
+import fr.uge.semonkey.algorithm.BestPath;
+import fr.uge.semonkey.main.Main;
+import fr.uge.semonkey.test.Test;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -26,9 +31,9 @@ import java.util.regex.Pattern;
  * @see Edge
  * @see FileLine
  * @see fr.uge.main
- * @see fr.uge.main.Test
- * @see fr.uge.main.BestPath
- * @see fr.uge.main.Main
+ * @see Test
+ * @see BestPath
+ * @see Main
  */
 public class MaximumSpanningTree {
     /**

@@ -1,4 +1,4 @@
-package fr.uge.main;
+package fr.uge.semonkey.model;
 
 import java.util.Objects;
 

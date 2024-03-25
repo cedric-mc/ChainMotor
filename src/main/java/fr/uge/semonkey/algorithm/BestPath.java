@@ -1,4 +1,11 @@
-package fr.uge.main;
+package fr.uge.semonkey.algorithm;
+
+import fr.uge.semonkey.main.Main;
+import fr.uge.semonkey.model.Edge;
+import fr.uge.semonkey.filemanagement.FileLine;
+import fr.uge.semonkey.model.MaximumSpanningTree;
+import fr.uge.semonkey.model.Word;
+import fr.uge.semonkey.test.Test;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -23,9 +30,9 @@ import java.util.*;
  * @see Word
  * @see Edge
  * @see fr.uge.main
- * @see fr.uge.main.Test
- * @see fr.uge.main.FileLine
- * @see fr.uge.main.Main
+ * @see Test
+ * @see FileLine
+ * @see Main
  */
 public class BestPath {
 

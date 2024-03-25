@@ -1,4 +1,8 @@
-package fr.uge.main;
+package fr.uge.semonkey.filemanagement;
+
+import fr.uge.semonkey.algorithm.BestPath;
+import fr.uge.semonkey.main.Main;
+import fr.uge.semonkey.model.MaximumSpanningTree;
 
 /**
  * Enumération des lignes de fichier, pour une meilleure lisibilité
@@ -9,8 +13,8 @@ package fr.uge.main;
  * @author Abdelrahim RICHE
  * @author Vincent SOUSA
  * @author Yacine ZEMOUCHE
- * @see fr.uge.main.BestPath
- * @see fr.uge.main.Main
+ * @see BestPath
+ * @see Main
  * @see MaximumSpanningTree
  */
 public enum FileLine {

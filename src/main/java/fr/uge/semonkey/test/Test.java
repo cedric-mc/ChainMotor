@@ -1,4 +1,9 @@
-package fr.uge.main;
+package fr.uge.semonkey.test;
+
+import fr.uge.semonkey.algorithm.BestPath;
+import fr.uge.semonkey.model.Edge;
+import fr.uge.semonkey.model.MaximumSpanningTree;
+import fr.uge.semonkey.model.Word;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -42,12 +42,11 @@ game_data_*.txt
 mst_*.txt
 
 jdk-21.0.2/
-!jdk-21.0.2/bin/java.exe
-!jdk-21.0.2/bin/javac.exe
-!jdk-21.0.2/bin/javaw.exe
-!jdk-21.0.2/bin/jar.exe
 .idea/dictionaries/cedri.xml
 
 partie/game_data_*.txt
 partie/mst_*.txt
 partie/best_path_*.txt
+
+## JavaDoc ##
+doc/
