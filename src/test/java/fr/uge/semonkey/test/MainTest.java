@@ -1,2 +1,4 @@
-package fr.uge.semonkey.main;public class MainTest {
+package fr.uge.semonkey.test;
+
+public class MainTest {
 }

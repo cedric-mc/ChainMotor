@@ -1,2 +1,4 @@
-package fr.uge.semonkey.filemanagement;public class FileLineTest {
+package fr.uge.semonkey.test;
+
+public class FileLineTest {
 }

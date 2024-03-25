@@ -1,2 +1,4 @@
-package fr.uge.semonkey.model;public class EdgeTest {
+package fr.uge.semonkey.test;
+
+public class EdgeTest {
 }

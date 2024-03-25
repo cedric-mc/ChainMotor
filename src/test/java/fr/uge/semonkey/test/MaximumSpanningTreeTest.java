@@ -1,2 +1,4 @@
-package fr.uge.semonkey.test;public class MaximumSpanningTreeTest {
+package fr.uge.semonkey.test;
+
+public class MaximumSpanningTreeTest {
 }

@@ -1,2 +1,4 @@
-package fr.uge.semonkey.algorithm;public class BestPathTest {
+package fr.uge.semonkey.test;
+
+public class BestPathTest {
 }
