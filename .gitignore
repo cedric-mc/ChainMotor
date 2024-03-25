@@ -49,7 +49,7 @@ partie/mst_*.txt
 partie/best_path_*.txt
 
 ## JavaDoc ##
-doc/*
+doc/
 
 ## Maven ##
 target/
