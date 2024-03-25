@@ -50,3 +50,6 @@ partie/best_path_*.txt
 
 ## JavaDoc ##
 doc/
+
+## Maven ##
+target/
