@@ -96,7 +96,12 @@ Vous pouvez retrouver les étapes de création de l'arbre dans le fichier `res/A
 
 ### JavaDoc
 
-La JavaDoc du projet est disponible dans le dossier `doc` à la racine du projet.
+Vous pouvez générer la JavaDoc du projet en exécutant la commande suivante à la racine du projet :
+
+```shell
+mvn javadoc:javadoc
+```
+
 Des documents complémentaire tel que le sujet et les consignes du projet sont disponibles dans le dossier `res` à la racine du projet.
 
 ## Auteurs
