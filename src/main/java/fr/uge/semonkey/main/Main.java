@@ -65,13 +65,13 @@ public class Main {
             fileName = FileLine.FOLDER.line + FileLine.GAME_FILE_JAVA.line + pseudo + FileLine.GAME_FILE_EXTENSION.line;
         } else { // Sinon, on charge l’arbre recouvrant maximal à partir du fichier (on a 2 arguments)
             fileName = args[1];
-            maximumSpanningTree = MaximumSpanningTree.loadMaximumSpanningTree(fileName);
+            maximumSpanningTree = new MaximumSpanningTree(null, null).deserialize(fileName);
             System.out.println("MaximumSpanningTree : " + maximumSpanningTree);
             maximumSpanningTree.loadAddEdges(args[0]); // On ajoute les arêtes du nouveau mot à l'arbre recouvrant maximal
             System.out.println("loadAddEdges : " + maximumSpanningTree);
         }
         // On exporte l’arbre recouvrant maximal dans un fichier
-        maximumSpanningTree.exportMaximumSpanningTreeToFile(fileName);
+        maximumSpanningTree.serialize(fileName);
 
         BestPath bestPath = new BestPath(maximumSpanningTree); // Trouver le chemin entre deux mots
         bestPath.printPathAndScore(); // Afficher le meilleur chemin et le score

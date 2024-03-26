@@ -502,7 +502,7 @@ public class MaximumSpanningTree implements SpanningTreeSerializer {
 
     @Override
     public SpanningTreeSerializer deserialize(String fileName) throws IOException {
-
+        return loadMaximumSpanningTree(fileName);
     }
 
     @Override
