@@ -1,11 +1,9 @@
 package fr.uge.semonkey.algorithm;
 
-import fr.uge.semonkey.main.Main;
-import fr.uge.semonkey.model.Edge;
 import fr.uge.semonkey.config.FileLine;
+import fr.uge.semonkey.model.Edge;
 import fr.uge.semonkey.model.MaximumSpanningTree;
 import fr.uge.semonkey.model.Word;
-import fr.uge.semonkey.test.Test;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
