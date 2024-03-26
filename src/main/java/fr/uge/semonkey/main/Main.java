@@ -1,7 +1,7 @@
 package fr.uge.semonkey.main;
 
 import fr.uge.semonkey.algorithm.BestPath;
-import fr.uge.semonkey.filemanagement.FileLine;
+import fr.uge.semonkey.config.FileLine;
 import fr.uge.semonkey.model.MaximumSpanningTree;
 
 import java.io.IOException;
@@ -9,16 +9,12 @@ import java.util.Objects;
 
 /**
  * Classe principale d’éxécution
- * lang = fr
  *
  * @author Mamadou BA
  * @author Cédric MARIYA CONSTANTINE
  * @author Abdelrahim RICHE
  * @author Vincent SOUSA
  * @author Yacine ZEMOUCHE
- * @see MaximumSpanningTree
- * @see FileLine
- * @see BestPath
  */
 public class Main {
     /**

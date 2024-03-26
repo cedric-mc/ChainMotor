@@ -8,14 +8,11 @@ import java.util.Objects;
  * @param sourceWord le mot source
  * @param similarity la similarité
  * @param targetWord le mot cible
- *                   lang = fr
  * @author Mamadou BA
  * @author Cédric MARIYA CONSTANTINE
  * @author Abdelrahim RICHE
  * @author Vincent SOUSA
  * @author Yacine ZEMOUCHE
- * @see MaximumSpanningTree
- * @see Word
  */
 public record Edge(Word sourceWord, double similarity, Word targetWord) {
 

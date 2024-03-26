@@ -1,2 +1,4 @@
-package fr.uge.semonkey.filemanagement;public class SpanningTreeSerializer {
+package fr.uge.semonkey.filemanagement;
+
+public interface SpanningTreeSerializer {
 }

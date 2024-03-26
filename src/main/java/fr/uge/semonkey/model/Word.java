@@ -6,15 +6,12 @@ import java.util.Objects;
  * Classe qui représente un mot dans un arbre recouvrant maximal
  *
  * @param word Mot
- *             word : Représente un mot dans l’arbre recouvrant maximal
- *             lang = fr
+ * word : Représente un mot dans l’arbre recouvrant maximal
  * @author Mamadou BA
  * @author Cédric MARIYA CONSTANTINE
  * @author Abdelrahim RICHE
  * @author Vincent SOUSA
  * @author Yacine ZEMOUCHE
- * @see MaximumSpanningTree
- * @see Edge
  */
 public record Word(String word) {
 

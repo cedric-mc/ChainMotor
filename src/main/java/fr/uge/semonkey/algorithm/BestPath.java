@@ -2,7 +2,7 @@ package fr.uge.semonkey.algorithm;
 
 import fr.uge.semonkey.main.Main;
 import fr.uge.semonkey.model.Edge;
-import fr.uge.semonkey.filemanagement.FileLine;
+import fr.uge.semonkey.config.FileLine;
 import fr.uge.semonkey.model.MaximumSpanningTree;
 import fr.uge.semonkey.model.Word;
 import fr.uge.semonkey.test.Test;
@@ -19,20 +19,12 @@ import java.util.*;
 
 /**
  * Classe pour trouver le chemin le plus court entre deux mots dans un arbre MST
- * lang = fr
  *
  * @author Mamadou BA
  * @author Cédric MARIYA CONSTANTINE
  * @author Abdelrahim RICHE
  * @author Vincent SOUSA
  * @author Yacine ZEMOUCHE
- * @see MaximumSpanningTree
- * @see Word
- * @see Edge
- * @see fr.uge.main
- * @see Test
- * @see FileLine
- * @see Main
  */
 public class BestPath {
 

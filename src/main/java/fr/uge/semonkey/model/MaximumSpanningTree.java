@@ -1,6 +1,6 @@
 package fr.uge.semonkey.model;
 
-import fr.uge.semonkey.filemanagement.FileLine;
+import fr.uge.semonkey.config.FileLine;
 import fr.uge.semonkey.algorithm.BestPath;
 import fr.uge.semonkey.main.Main;
 import fr.uge.semonkey.test.Test;
@@ -20,20 +20,12 @@ import java.util.regex.Pattern;
 
 /**
  * Classe pour représenter un arbre recouvrant maximal (MST) et effectuer des opérations sur cet arbre.
- * lang = fr
  *
  * @author Mamadou BA
  * @author Cédric MARIYA CONSTANTINE
  * @author Abdelrahim RICHE
  * @author Vincent SOUSA
  * @author Yacine ZEMOUCHE
- * @see Word
- * @see Edge
- * @see FileLine
- * @see fr.uge.main
- * @see Test
- * @see BestPath
- * @see Main
  */
 public class MaximumSpanningTree {
     /**

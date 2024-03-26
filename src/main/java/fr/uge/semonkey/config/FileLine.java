@@ -1,4 +1,4 @@
-package fr.uge.semonkey.filemanagement;
+package fr.uge.semonkey.config;
 
 import fr.uge.semonkey.algorithm.BestPath;
 import fr.uge.semonkey.main.Main;

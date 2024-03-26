@@ -13,24 +13,14 @@ import java.util.Map;
 /**
  * Classe de Test pour illustrer l'utilisation de MaximumSpanningTree et BestPath.
  * Cette classe crée un exemple d'arbre recouvrant maximal et trouve le meilleur chemin entre deux mots.
- * lang = fr
  *
  * @author Mamadou BA
  * @author Cédric MARIYA CONSTANTINE
  * @author Abdelrahim RICHE
  * @author Vincent SOUSA
  * @author Yacine ZEMOUCHE
- * @see MaximumSpanningTree
- * @see BestPath
- * @see Word
- * @see Edge
  */
 public class Test {
-    /**
-     * Constructeur par défaut
-     */
-    public Test() {
-    }
 
     /**
      * Méthode principale :
