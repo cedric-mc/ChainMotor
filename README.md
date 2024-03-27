@@ -54,7 +54,20 @@ Vous pouvez retrouver des exemples de fichiers d'entrée et de sortie dans le do
 
 ### Termes importants
 
-
+- **MST** : Arbre recouvrant minimal.
+- **Mots bannis** : Mots qui ne peuvent pas être utilisés pour créer le meilleur chemin.
+- **Meilleur chemin** : Chaîne de mots similaires qui relie le mot de départ au mot cible.
+- **Maillon le plus faible** : Mot le moins similaire du meilleur chemin.
+- **Similarité** : Valeur entre 0 et 100 qui représente la similarité entre deux mots.
+- **Offset** : Position du mot dans l'arbre lexicographique.
+- **Structure de données** : Classe Java qui représente un objet avec des attributs et des méthodes.
+- **Record** : Classe Java qui représente un objet avec des attributs et des méthodes mais sans méthodes mutatrices.
+- **Enumération** : Classe Java qui représente un ensemble de constantes.
+- **JavaDoc** : Documentation générée automatiquement à partir du code source Java.
+- **Fichier d'entrée** : Fichier qui contient les données nécessaires pour exécuter le programme.
+- **Fichier de sortie** : Fichier qui contient les résultats de l'exécution du programme.
+- **EOF** : End Of File, indique la fin d'un fichier.
+- **Pseudo** : Nom de l'utilisateur.
 
 ### Structure de données
 

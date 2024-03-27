@@ -1,6 +1,7 @@
 package fr.uge.semonkey.algorithm;
 
 import fr.uge.semonkey.config.FileLine;
+import fr.uge.semonkey.filemanagement.SpanningTreeSerializer;
 import fr.uge.semonkey.model.Edge;
 import fr.uge.semonkey.model.MaximumSpanningTree;
 import fr.uge.semonkey.model.Word;
@@ -29,7 +30,7 @@ public class BestPath {
     /**
      * Arbre MST
      */
-    private final MaximumSpanningTree maximumSpanningTree; // Arbre MST
+    private final SpanningTreeSerializer spanningTreeSerializer; // Arbre MST
     /**
      * Arêtes du meilleur chemin
      */
@@ -42,10 +43,10 @@ public class BestPath {
     /**
      * Constructeur pour trouver le chemin le plus court entre deux mots dans un arbre MST
      *
-     * @param maximumSpanningTree Arbre MST
+     * @param spanningTreeSerializer Arbre MST
      */
-    public BestPath(MaximumSpanningTree maximumSpanningTree) {
-        this.maximumSpanningTree = maximumSpanningTree;
+    public BestPath(SpanningTreeSerializer spanningTreeSerializer) {
+        this.spanningTreeSerializer = spanningTreeSerializer;
         this.bestPathEdges = breadthFirstSearch(); // Trouver le chemin le plus court
         this.minimumSimilarity = calculatePathScore(bestPathEdges); // Calculer la similarité minimale du chemin
     }
@@ -55,8 +56,8 @@ public class BestPath {
      *
      * @return Arbre MST
      */
-    public MaximumSpanningTree getMaximumSpanningTree() {
-        return maximumSpanningTree;
+    public SpanningTreeSerializer getMaximumSpanningTree() {
+        return spanningTreeSerializer;
     }
 
     /**
@@ -81,8 +82,8 @@ public class BestPath {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(FileLine.BEST_PATH.line).append("\n");
-        sb.append(FileLine.START_WORD.line).append(maximumSpanningTree.getStartWord()).append("\n");
-        sb.append(FileLine.END_WORD.line).append(maximumSpanningTree.getEndWord()).append("\n");
+        sb.append(FileLine.START_WORD.line).append(spanningTreeSerializer.getStartWord()).append("\n");
+        sb.append(FileLine.END_WORD.line).append(spanningTreeSerializer.getEndWord()).append("\n");
         sb.append(FileLine.BEST_PATH_EDGES.line).append("\n");
         for (Edge edge : bestPathEdges) {
             sb.append(String.format(FileLine.EDGE_FORMAT_OUTPUT.line, edge.sourceWord().word(), edge.targetWord(), edge.similarity())).append("\n");
@@ -162,7 +163,7 @@ public class BestPath {
      * @return Arêtes du chemin le plus court entre les deux mots
      */
     private Edge findEdgeBetween(Word word1, Word word2) {
-        for (Edge edge : maximumSpanningTree.getEdgesMST()) { // Parcourir chaque arête de l’arbre
+        for (Edge edge : spanningTreeSerializer.getEdges()) { // Parcourir chaque arête de l’arbre
             if ((edge.sourceWord().equals(word1) && edge.targetWord().equals(word2)) ||
                     (edge.sourceWord().equals(word2) && edge.targetWord().equals(word1))) {
                 // Retourner l’arête si elle relie les deux mots
@@ -181,8 +182,8 @@ public class BestPath {
     private List<Edge> constructPath(Map<Word, Word> parentMap) {
         List<Edge> path = new ArrayList<>();
         // Commencer par le mot de fin et remonter jusqu’au mot de départ
-        Word current = maximumSpanningTree.getEndWord();
-        while (current != null && !current.equals(maximumSpanningTree.getStartWord())) {
+        Word current = spanningTreeSerializer.getEndWord();
+        while (current != null && !current.equals(spanningTreeSerializer.getStartWord())) {
             Word parent = parentMap.get(current);
             // Si aucun parent n’est trouvé, cela signifie que le chemin est incomplet
             if (parent == null) {
@@ -210,19 +211,19 @@ public class BestPath {
         Queue<Word> queue = new LinkedList<>(); // File d’attente pour le parcours BFS
         Set<Word> visited = new HashSet<>(); // Ensemble pour suivre les mots déjà visités
         // Initialiser la file d’attente et les ensembles
-        queue.add(maximumSpanningTree.getStartWord());
-        visited.add(maximumSpanningTree.getStartWord());
-        parentMap.put(maximumSpanningTree.getStartWord(), null);
+        queue.add(spanningTreeSerializer.getStartWord());
+        visited.add(spanningTreeSerializer.getStartWord());
+        parentMap.put(spanningTreeSerializer.getStartWord(), null);
 
         // Parcours BFS
         while (!queue.isEmpty()) {
             Word current = queue.remove();
             // Arrêter si le mot de fin est atteint
-            if (current.equals(maximumSpanningTree.getEndWord())) {
+            if (current.equals(spanningTreeSerializer.getEndWord())) {
                 break;
             }
             // Vérifier chaque arête de l’arbre
-            for (Edge edge : maximumSpanningTree.getEdgesMST()) {
+            for (Edge edge : spanningTreeSerializer.getEdges()) {
                 Word neighbor = null;
                 // Trouver le voisin du mot actuel
                 if (edge.sourceWord().equals(current)) {

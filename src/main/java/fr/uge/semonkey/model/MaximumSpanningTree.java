@@ -37,7 +37,7 @@ public class MaximumSpanningTree implements SpanningTreeSerializer {
     /**
      * Arêtes de l’arbre de recouvrement minimal
      */
-    private final List<Edge> edgesMST;
+    private final List<Edge> edges;
     /**
      * Ensemble de mots interdits
      */
@@ -48,11 +48,11 @@ public class MaximumSpanningTree implements SpanningTreeSerializer {
      *
      * @param startWord   Mot de départ
      * @param endWord     Mot de fin
-     * @param edgesMST    Arêtes de l’arbre de recouvrement minimal
+     * @param edges    Arêtes de l’arbre de recouvrement minimal
      * @param bannedWords Mots interdits
      */
-    public MaximumSpanningTree(Word startWord, Word endWord, List<Edge> edgesMST, Set<Word> bannedWords) {
-        this.edgesMST = edgesMST;
+    public MaximumSpanningTree(Word startWord, Word endWord, List<Edge> edges, Set<Word> bannedWords) {
+        this.edges = edges;
         this.startWord = startWord;
         this.endWord = endWord;
         this.bannedWords = bannedWords;
@@ -86,7 +86,7 @@ public class MaximumSpanningTree implements SpanningTreeSerializer {
         sb.append(FileLine.END_WORD.line).append(endWord).append("\n");
         // Ajouter les arêtes de l’arbre
         sb.append(FileLine.EDGES_MST.line).append("\n");
-        for (Edge edge : edgesMST) { // Parcourir chaque arête
+        for (Edge edge : edges) { // Parcourir chaque arête
             sb.append(String.format(FileLine.EDGE_FORMAT.line, edge.sourceWord().word(), edge.targetWord(), edge.similarity())).append("\n");
         }
         // Ajouter les mots interdits
@@ -179,6 +179,7 @@ public class MaximumSpanningTree implements SpanningTreeSerializer {
      *
      * @return Word Mot de départ
      */
+    @Override
     public Word getStartWord() {
         return startWord;
     }
@@ -188,6 +189,7 @@ public class MaximumSpanningTree implements SpanningTreeSerializer {
      *
      * @return Word Mot de fin
      */
+    @Override
     public Word getEndWord() {
         return endWord;
     }
@@ -197,8 +199,9 @@ public class MaximumSpanningTree implements SpanningTreeSerializer {
      *
      * @return La liste d'arêtes de l’arbre de recouvrement minimal
      */
-    public List<Edge> getEdgesMST() {
-        return edgesMST;
+    @Override
+    public List<Edge> getEdges() {
+        return edges;
     }
 
     /**
@@ -216,7 +219,7 @@ public class MaximumSpanningTree implements SpanningTreeSerializer {
      * @param edge Arête à ajouter
      */
     public void addEdge(Edge edge) {
-        edgesMST.add(edge);
+        edges.add(edge);
     }
 
     /**
@@ -225,7 +228,7 @@ public class MaximumSpanningTree implements SpanningTreeSerializer {
      * @param edge Arête à supprimer
      */
     public void removeEdge(Edge edge) {
-        edgesMST.remove(edge);
+        edges.remove(edge);
     }
 
     /**
@@ -311,7 +314,7 @@ public class MaximumSpanningTree implements SpanningTreeSerializer {
         visited.add(current);
 
         // Parcourir toutes les arêtes de l’arbre (MST)
-        for (Edge edge : edgesMST) {
+        for (Edge edge : edges) {
             Word next = null;
             // Vérifier si l’arête courante contient le mot actuel et trouver le mot suivant
             if (edge.sourceWord().equals(current)) {
@@ -357,7 +360,7 @@ public class MaximumSpanningTree implements SpanningTreeSerializer {
         List<Edge> cycleEdges = new ArrayList<>();
 
         // Parcourir toutes les arêtes de l’arbre (MST)
-        for (Edge edge : edgesMST) {
+        for (Edge edge : edges) {
             Word word1 = edge.sourceWord();
 
             // Vérifier si le mot word1 n’a pas déjà été visité
@@ -396,10 +399,10 @@ public class MaximumSpanningTree implements SpanningTreeSerializer {
                 Edge edgeToRemove = lowestSimilarityEdges.get(random.nextInt(lowestSimilarityEdges.size()));
 
                 // Vérifier si l'arête à supprimer est la seule arête connectée au mot de départ ou au mot cible
-                long countStart = edgesMST.stream()
+                long countStart = edges.stream()
                         .filter(edge -> edge.sourceWord().equals(startWord) || edge.targetWord().equals(startWord))
                         .count();
-                long countEnd = edgesMST.stream()
+                long countEnd = edges.stream()
                         .filter(edge -> edge.sourceWord().equals(endWord) || edge.targetWord().equals(endWord))
                         .count();
 
@@ -425,7 +428,7 @@ public class MaximumSpanningTree implements SpanningTreeSerializer {
      */
     private boolean isWordAdded(Word word) {
         // Retourne vrai si le mot a été ajouté à l’arbre
-        return edgesMST.stream()
+        return edges.stream()
                 .anyMatch(edge -> edge.sourceWord().equals(word) || edge.targetWord().equals(word));
     }
 
@@ -456,7 +459,7 @@ public class MaximumSpanningTree implements SpanningTreeSerializer {
         Word addingWord = addWordAndEdges.keySet().iterator().next();
 
         // Enlever les arêtes dont la similarité est inférieure à la similarité minimale entre les nœuds de l’arbre
-        addEdges.removeIf(edge -> edge.similarity() < this.getEdgesMST().stream()
+        addEdges.removeIf(edge -> edge.similarity() < this.getEdges().stream()
                 .mapToDouble(Edge::similarity)
                 .min()
                 .orElse(Double.MIN_VALUE));
@@ -486,7 +489,7 @@ public class MaximumSpanningTree implements SpanningTreeSerializer {
 
             // Vérifier si l’arête ajoutée possède une similarité plus faible
             // que la similarité minimale entre les nœuds de l’arbre
-            double minSimilarityInMST = this.getEdgesMST().stream()
+            double minSimilarityInMST = this.getEdges().stream()
                     .mapToDouble(Edge::similarity)
                     .min()
                     .orElse(Double.MIN_VALUE);

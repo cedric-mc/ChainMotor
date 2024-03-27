@@ -2,6 +2,7 @@ package fr.uge.semonkey.main;
 
 import fr.uge.semonkey.algorithm.BestPath;
 import fr.uge.semonkey.config.FileLine;
+import fr.uge.semonkey.filemanagement.SpanningTreeSerializer;
 import fr.uge.semonkey.model.MaximumSpanningTree;
 
 import java.io.IOException;
@@ -51,11 +52,12 @@ public class Main {
             System.out.println("Erreur : Nombre d'arguments incorrect");
             return;
         }
+        long startTime = System.nanoTime();
         // Récupération du pseudo du joueur à partir du nom du fichier
         String pseudo = args[0].replace(FileLine.GAME_FILE_EXTENSION.line, "")
                 .replace(FileLine.GAME_FILE_C.line, "")
                 .replace(FileLine.FOLDER.line, "");
-        MaximumSpanningTree maximumSpanningTree;
+        SpanningTreeSerializer maximumSpanningTree = null;
         String fileName;
         if (args.length == 1 && !Objects.equals(args[0], "--help")) {
             // Si le nombre d'arguments est égal à 1 et que l'argument n'est pas --help
@@ -65,7 +67,7 @@ public class Main {
             fileName = FileLine.FOLDER.line + FileLine.GAME_FILE_JAVA.line + pseudo + FileLine.GAME_FILE_EXTENSION.line;
         } else { // Sinon, on charge l’arbre recouvrant maximal à partir du fichier (on a 2 arguments)
             fileName = args[1];
-            maximumSpanningTree = new MaximumSpanningTree(null, null).deserialize(fileName);
+            maximumSpanningTree = maximumSpanningTree.deserialize(fileName);
             System.out.println("MaximumSpanningTree : " + maximumSpanningTree);
             maximumSpanningTree.loadAddEdges(args[0]); // On ajoute les arêtes du nouveau mot à l'arbre recouvrant maximal
             System.out.println("loadAddEdges : " + maximumSpanningTree);
@@ -78,5 +80,8 @@ public class Main {
         // Écrire le meilleur chemin dans un fichier
         String bestPathFileName = FileLine.FOLDER.line + FileLine.GAME_FILE_OUTPUT.line + pseudo + FileLine.GAME_FILE_EXTENSION.line;
         bestPath.writeBestPathToFile(bestPathFileName);
+        long endTime = System.nanoTime();
+        long duration = (endTime - startTime);
+        System.out.println("Durée d'exécution : " + duration / /* En seconde */ 1_000_000_000 + "s");
     }
 }
