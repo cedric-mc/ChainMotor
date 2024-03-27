@@ -68,6 +68,10 @@ public class MaximumSpanningTree implements SpanningTreeSerializer {
         this(startWord, endWord, new ArrayList<>(), new HashSet<>());
     }
 
+    public MaximumSpanningTree() {
+        this(null, null, new ArrayList<>(), new HashSet<>());
+    }
+
     /**
      * Méthode pour obtenir une représentation textuelle de l’arbre recouvrant maximal
      *
@@ -228,7 +232,6 @@ public class MaximumSpanningTree implements SpanningTreeSerializer {
      * Méthode pour ajouter les arêtes d’un mot à l’arbre recouvrant maximal
      *
      * @param file Chemin du fichier
-     * @throws IOException Charge et ajoute les arêtes d’un mot à l’arbre recouvrant maximal
      */
     public void loadAddEdges(String file) throws IOException {
         Word addWord = null; // Créer un mot pour stocker le mot à ajouter
@@ -507,21 +510,6 @@ public class MaximumSpanningTree implements SpanningTreeSerializer {
 
     @Override
     public void serialize(String fileName) throws IOException {
-        // Créer un objet Path pour le fichier et un objet BufferedWriter pour écrire dans le fichier
-        Path path = Paths.get(fileName);
-        try (BufferedWriter bufferedWriter = Files.newBufferedWriter(path, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.WRITE);) { // Créer un objet BufferedWriter pour écrire dans le fichier
-            bufferedWriter.write(toString()); // Écrire l’arbre recouvrant maximal dans le fichier
-            bufferedWriter.close(); // Fermer le fichier
-            // Définir les permissions
-            Set<PosixFilePermission> perms = Set.of(
-                    PosixFilePermission.OWNER_READ, PosixFilePermission.OWNER_WRITE,
-                    PosixFilePermission.GROUP_READ, PosixFilePermission.GROUP_WRITE,
-                    PosixFilePermission.OTHERS_READ, PosixFilePermission.OTHERS_WRITE
-            );
-            Files.setPosixFilePermissions(path, perms);
-        } catch (IOException e) {
-            // Handle exception
-            throw new IOException("Erreur dans l'écriture du fichier", e);
-        }
+        exportMaximumSpanningTreeToFile(fileName);
     }
 }
