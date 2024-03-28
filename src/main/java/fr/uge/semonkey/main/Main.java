@@ -57,7 +57,7 @@ public class Main {
         String pseudo = args[0].replace(FileLine.GAME_FILE_EXTENSION.line, "")
                 .replace(FileLine.GAME_FILE_C.line, "")
                 .replace(FileLine.FOLDER.line, "");
-        SpanningTreeSerializer maximumSpanningTree = null;
+        SpanningTreeSerializer maximumSpanningTree;
         String fileName;
         if (args.length == 1 && !Objects.equals(args[0], "--help")) {
             // Si le nombre d'arguments est égal à 1 et que l'argument n'est pas --help
@@ -67,7 +67,7 @@ public class Main {
             fileName = FileLine.FOLDER.line + FileLine.GAME_FILE_JAVA.line + pseudo + FileLine.GAME_FILE_EXTENSION.line;
         } else { // Sinon, on charge l’arbre recouvrant maximal à partir du fichier (on a 2 arguments)
             fileName = args[1];
-            maximumSpanningTree = maximumSpanningTree.deserialize(fileName);
+            maximumSpanningTree = MaximumSpanningTree.loadMaximumSpanningTree(fileName);
             System.out.println("MaximumSpanningTree : " + maximumSpanningTree);
             maximumSpanningTree.loadAddEdges(args[0]); // On ajoute les arêtes du nouveau mot à l'arbre recouvrant maximal
             System.out.println("loadAddEdges : " + maximumSpanningTree);

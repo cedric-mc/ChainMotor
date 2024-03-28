@@ -3,7 +3,6 @@ package fr.uge.semonkey.algorithm;
 import fr.uge.semonkey.config.FileLine;
 import fr.uge.semonkey.filemanagement.SpanningTreeSerializer;
 import fr.uge.semonkey.model.Edge;
-import fr.uge.semonkey.model.MaximumSpanningTree;
 import fr.uge.semonkey.model.Word;
 
 import java.io.BufferedWriter;
@@ -13,7 +12,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.nio.file.attribute.PosixFilePermission;
 import java.util.*;
 
 /**
@@ -102,16 +100,16 @@ public class BestPath {
     public void writeBestPathToFile(String file) throws IOException {
         // Créer un objet Path pour le fichier et un objet BufferedWriter pour écrire dans le fichier
         Path path = Paths.get(file);
-        try (BufferedWriter bufferedWriter = Files.newBufferedWriter(path, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.WRITE);) { // Créer un objet BufferedWriter pour écrire dans le fichier
+        try (BufferedWriter bufferedWriter = Files.newBufferedWriter(path, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.WRITE)) { // Créer un objet BufferedWriter pour écrire dans le fichier
             bufferedWriter.write(toString()); // Écrire l’arbre recouvrant maximal dans le fichier
             bufferedWriter.close(); // Fermer le fichier
             // Définir les permissions
-            Set<PosixFilePermission> perms = Set.of(
+            /*Set<PosixFilePermission> perms = Set.of(
                     PosixFilePermission.OWNER_READ, PosixFilePermission.OWNER_WRITE,
                     PosixFilePermission.GROUP_READ, PosixFilePermission.GROUP_WRITE,
                     PosixFilePermission.OTHERS_READ, PosixFilePermission.OTHERS_WRITE
             );
-            Files.setPosixFilePermissions(path, perms);
+            Files.setPosixFilePermissions(path, perms);*/
         } catch (IOException e) {
             // Handle exception
             throw new IOException("Erreur dans l'écriture du fichier", e);
