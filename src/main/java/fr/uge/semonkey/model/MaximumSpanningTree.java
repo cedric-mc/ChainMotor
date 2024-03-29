@@ -405,13 +405,6 @@ public class MaximumSpanningTree implements SpanningTreeSerializer {
         return bannedWords.contains(sourceWord) || bannedWords.contains(targetWord);
     }
 
-    /**
-     * Méthode pour ajouter un mot à l’arbre recouvrant maximal
-     *
-     * @param addWordAndEdges Mot à ajouter et ses arêtes
-     *                        <p>
-     *                        Ajoute un mot à l’arbre recouvrant maximal
-     */
     public void addWord(Map<Word, List<Edge>> addWordAndEdges) {
         // Créer une liste pour stocker les nouvelles arêtes à ajouter
         List<Edge> addEdges = addWordAndEdges.values().iterator().next();

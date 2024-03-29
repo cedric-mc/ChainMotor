@@ -67,7 +67,6 @@ public class Main {
         } else { // Sinon, on charge l’arbre recouvrant maximal à partir du fichier (on a 2 arguments)
             fileName = args[1];
             maximumSpanningTree = maximumSpanningTree.deserialize(fileName);
-            System.out.println("MaximumSpanningTree : " + maximumSpanningTree);
             maximumSpanningTree.loadAddEdges(args[0]); // On ajoute les arêtes du nouveau mot à l'arbre recouvrant maximal
         }
         // On exporte l’arbre recouvrant maximal dans un fichier
