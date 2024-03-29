@@ -2,14 +2,19 @@
 
 ## Description
 
-ChainMotor dont le nom français est Moteur de châine, permet de manipuler de filtrer/transformer un arbre lexicographique réalisé ultérieurement par le module [ScoreEngine]().
-Cette transformation va permettre d’obtenir un arbre recouvrant maximal, c’est-à-dire un arbre qui élimine les branches (arêtes) qui ne sont pas nécessaires.
-Le but est de réduire la taille de l’arbre pour faciliter la recherche de la meilleure solution (le meilleur chemin) dans l’arbre.
+ChainMotor dont le nom français est Moteur de châine, permet de manipuler de filtrer/transformer un arbre
+lexicographique réalisé ultérieurement par le module [ScoreEngine]().
+Cette transformation va permettre d’obtenir un arbre recouvrant maximal, c’est-à-dire un arbre qui élimine les
+branches (arêtes) qui ne sont pas nécessaires.
+Le but est de réduire la taille de l’arbre pour faciliter la recherche de la meilleure solution (le meilleur chemin)
+dans l’arbre.
 
 ### But du jeu
 
-Chaque joueur reçoit un mot de départ et un mot cible, et propose des mots proches afin de créer une **chaîne de mots similaires** pour relier le mot de départ au mot cible.
-Le score d’une chaîne de mots correspond au score de similarité de son **maillon le plus faible** : peu importe la longueur de la chaîne, le but est que chaque mot ressemble autant que possible au précédent.
+Chaque joueur reçoit un mot de départ et un mot cible, et propose des mots proches afin de créer une **chaîne de mots
+similaires** pour relier le mot de départ au mot cible.
+Le score d’une chaîne de mots correspond au score de similarité de son **maillon le plus faible** : peu importe la
+longueur de la chaîne, le but est que chaque mot ressemble autant que possible au précédent.
 
 ## Prérequis
 
@@ -25,20 +30,24 @@ Vous pouvez retrouver des exemples de fichiers d'entrée et de sortie dans le do
 
 - Fichier d'entrée de **ScoreEngine** : `game_data_[pseudo].txt` :
     - La 1<sup>ère</sup> ligne contient uniquement "Mots de départ :".
-    - La 2<sup>ème</sup> et 3<sup>ème</sup> lignes contiennent sur chaque ligne : le mot de départ ou d'arrivé suivit de leur offset (position du mot dans l'arbre lexicographique, entier) séparé par une virgule.
+    - La 2<sup>ème</sup> et 3<sup>ème</sup> lignes contiennent sur chaque ligne : le mot de départ ou d'arrivé suivit de
+      leur offset (position du mot dans l'arbre lexicographique, entier) séparé par une virgule.
     - La 4<sup>ème</sup> ligne contient uniquement "Liste des mots :".
     - Les lignes suivantes contiennent les mots du jeu selon le format suivant : "mot, offset: _offset_".
     - Après la liste des mots, il y a une ligne qui contient uniquement "Distance entre les mots :".
-    - Les lignes suivantes contiennent les distances entre les mots du jeu selon le format suivant : "mot1, mot2, distance: _similarité_". (la similarité est un nombre à virgule flottante entre 0 et 100).
+    - Les lignes suivantes contiennent les distances entre les mots du jeu selon le format suivant : "mot1, mot2,
+      distance: _similarité_". (la similarité est un nombre à virgule flottante entre 0 et 100).
 
 - Fichier d'entrée de **ChainMotor** : `mst_[pseudo].txt` :
-    - La 1<sup>ère</sup> ligne contient uniquement "MaximumSpanningTree :" pour indiquer le nom de la structure de données.
+    - La 1<sup>ère</sup> ligne contient uniquement "MaximumSpanningTree :" pour indiquer le nom de la structure de
+      données.
     - Les lignes suivantes vont donc contenir les différents champs de la structure de données.
     - La 2<sup>ème</sup> ligne contient le mot de départ de la façon suivante : "startWord : _mot_".
     - La 3<sup>ème</sup> ligne contient le mot d'arrivé de la façon suivante : "endWord : _mot_".
     - La 4<sup>ème</sup> ligne contient uniquement "edgesMST :" pour indiquer le début de la liste des arêtes du MST.
     - Les lignes suivantes contiennent les arêtes du MST selon le format suivant : "mot1, mot2, distance: _similarité_".
-    - Ensuite, il y a une ligne qui contient uniquement "bannedWords :" pour indiquer le début de la liste des mots bannis.
+    - Ensuite, il y a une ligne qui contient uniquement "bannedWords :" pour indiquer le début de la liste des mots
+      bannis.
     - Les lignes suivantes contiennent les mots bannis selon le format suivant : "mot".
     - Enfin, il y a une ligne qui contient uniquement "EOF" pour indiquer la fin du fichier.
 
@@ -47,9 +56,12 @@ Vous pouvez retrouver des exemples de fichiers d'entrée et de sortie dans le do
     - Les lignes suivantes vont donc contenir les différents champs de la structure de données.
     - La 2<sup>ème</sup> ligne contient le mot de départ de la façon suivante : "startWord : _mot_".
     - La 3<sup>ème</sup> ligne contient le mot d'arrivé de la façon suivante : "endWord : _mot_".
-    - La 4<sup>ème</sup> ligne contient uniquement "bestPathEdges :" pour indiquer le début de la liste des arêtes du meilleur chemin.
-    - Les lignes suivantes contiennent les arêtes du meilleur chemin selon le format suivant : "mot1 -> mot2 : _similarité_".
-    - Ensuite, il y a une ligne qui contient "MinimumSimilarity : _similarité_" pour indiquer la similarité minimale du meilleur chemin.
+    - La 4<sup>ème</sup> ligne contient uniquement "bestPathEdges :" pour indiquer le début de la liste des arêtes du
+      meilleur chemin.
+    - Les lignes suivantes contiennent les arêtes du meilleur chemin selon le format suivant : "mot1 -> mot2 :
+      _similarité_".
+    - Ensuite, il y a une ligne qui contient "MinimumSimilarity : _similarité_" pour indiquer la similarité minimale du
+      meilleur chemin.
     - Enfin, il y a une ligne qui contient uniquement "EOF" pour indiquer la fin du fichier.
 
 ### Termes importants
@@ -106,16 +118,17 @@ Arbre de test utilisé :
 
 Vous pouvez retrouver les étapes de création de l'arbre dans le fichier `res/Arbre-partie-v2.pdf`.
 
-
 ### JavaDoc
 
-Vous pouvez générer la JavaDoc du projet dans le répertoire `doc` à la racine du projet en exécutant la commande suivante :
+Vous pouvez générer la JavaDoc du projet dans le répertoire `doc` à la racine du projet en exécutant la commande
+suivante :
 
 ```shell
 mvn javadoc:javadoc
 ```
 
-Des documents complémentaire tel que le sujet et les consignes du projet sont disponibles dans le dossier `res` à la racine du projet.
+Des documents complémentaire tel que le sujet et les consignes du projet sont disponibles dans le dossier `res` à la
+racine du projet.
 
 ## Auteurs
 

@@ -8,10 +8,13 @@ import java.util.List;
 
 public interface SpanningTreeSerializer {
     Word getStartWord();
+
     Word getEndWord();
+
     List<Edge> getEdges();
 
     void serialize(String fileName) throws IOException;
+
     SpanningTreeSerializer deserialize(String fileName) throws IOException;
 
     void loadAddEdges(String fileName) throws IOException;

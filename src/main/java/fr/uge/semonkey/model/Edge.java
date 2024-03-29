@@ -18,7 +18,7 @@ public record Edge(Word sourceWord, double similarity, Word targetWord) {
 
     /**
      * @return String
-     *
+     * <p>
      * Méthode qui retourne une représentation textuelle de l'objet
      */
     @Override

@@ -6,7 +6,7 @@ import java.util.Objects;
  * Classe qui représente un mot dans un arbre recouvrant maximal
  *
  * @param word Mot
- * word : Représente un mot dans l’arbre recouvrant maximal
+ *             word : Représente un mot dans l’arbre recouvrant maximal
  * @author Mamadou BA
  * @author Cédric MARIYA CONSTANTINE
  * @author Abdelrahim RICHE
@@ -17,6 +17,7 @@ public record Word(String word) {
 
     /**
      * Méthode toString pour afficher un mot
+     *
      * @return the word
      */
     @Override
@@ -26,6 +27,7 @@ public record Word(String word) {
 
     /**
      * Méthode equals pour comparer deux mots
+     *
      * @param o o : Objet à comparer
      * @return Méthode equals pour comparer deux mots
      */
