@@ -245,57 +245,15 @@ public class MaximumSpanningTree implements SpanningTreeSerializer {
         addWord(wordMap);
     }
 
-    private void depthFirstSearchHelper(Word current, Word parent, Set<Word> visited, List<Edge> cycleEdges) {
-        visited.add(current);
-        List<Edge> adjacentEdges = graph.getAdjacentEdges(current);
-
-        for (Edge edge : adjacentEdges) {
-            Word next = (edge.sourceWord().equals(current)) ? edge.targetWord() : edge.sourceWord();
-            if (!visited.contains(next)) {
-                depthFirstSearchHelper(next, current, visited, cycleEdges);
-            } else if (!next.equals(parent)) {
-                // Cycle detected, add the edge to cycleEdges list
-                cycleEdges.add(edge);
+    private void depthFirstSearch(Word node, Set<Word> visited) {
+        visited.add(node);
+        List<Edge> edges = graph.getEdges(node);
+        for (Edge edge : edges) {
+            Word neighbor = edge.targetWord();
+            if (!visited.contains(neighbor)) {
+                depthFirstSearch(neighbor, visited);
             }
         }
-    }
-
-    private boolean depthFirstSearch(Word current, Word parent, Set<Word> visited, List<Edge> cycleEdges, Map<Word, List<Edge>> adjacencyMap) {
-        // Marquer le mot actuel comme visité
-        visited.add(current);
-        // Récupérer les arêtes voisines du nœud actuel depuis la map d'adjacence
-        List<Edge> neighbors = adjacencyMap.getOrDefault(current, Collections.emptyList());
-
-        // Parcourir toutes les arêtes voisines
-        for (Edge edge : neighbors) {
-            Word next = null;
-            // Déterminer le nœud voisin
-            if (edge.sourceWord().equals(current)) {
-                next = edge.targetWord();
-            } else if (edge.targetWord().equals(current)) {
-                next = edge.sourceWord();
-            }
-            // Si un nœud voisin est trouvé
-            if (next != null) {
-                // Vérifier si le nœud voisin n'a pas déjà été visité
-                if (!visited.contains(next)) {
-                    // Continuer la recherche en profondeur à partir du nœud voisin
-                    // Si un cycle est trouvé, ajouter l’arête actuelle à la liste des arêtes du cycle
-                    // et retourner true pour indiquer la détection d’un cycle
-                    if (depthFirstSearch(next, current, visited, cycleEdges, adjacencyMap)) {
-                        cycleEdges.add(edge);
-                        return true;
-                    }
-                } else if (!next.equals(parent)) {
-                    // Si le nœud voisin a déjà été visité et n’est pas le parent actuel,
-                    // cela signifie qu’un cycle a été détecté, ajouter l’arête actuelle au cycle.
-                    cycleEdges.add(edge);
-                    return true;
-                }
-            }
-        }
-        // Si aucun cycle n’a été détecté à partir du nœud actuel, retourner false
-        return false;
     }
 
     /**
@@ -326,9 +284,10 @@ public class MaximumSpanningTree implements SpanningTreeSerializer {
             // Vérifier si le mot word1 n’a pas déjà été visité
             if (!visited.contains(word1)) {
                 // Appeler la méthode dfs pour rechercher un cycle à partir de word1
-                if (depthFirstSearch(word1, null, visited, cycleEdges, adjacencyMap)) {
-                    // Si un cycle est trouvé, sortir de la boucle
-                    break;
+                depthFirstSearch(word1, visited);
+                // Si un cycle est détecté, ajouter les arêtes du cycle à la liste
+                if (visited.contains(edge.targetWord())) {
+                    cycleEdges.add(edge);
                 }
             }
         }
@@ -496,12 +455,12 @@ public class MaximumSpanningTree implements SpanningTreeSerializer {
             bufferedWriter.write(toString()); // Écrire l’arbre recouvrant maximal dans le fichier
             bufferedWriter.close(); // Fermer le fichier
             // Définir les permissions
-            Set<PosixFilePermission> perms = Set.of(
+            /*Set<PosixFilePermission> perms = Set.of(
                     PosixFilePermission.OWNER_READ, PosixFilePermission.OWNER_WRITE,
                     PosixFilePermission.GROUP_READ, PosixFilePermission.GROUP_WRITE,
                     PosixFilePermission.OTHERS_READ, PosixFilePermission.OTHERS_WRITE
             );
-            Files.setPosixFilePermissions(path, perms);
+            Files.setPosixFilePermissions(path, perms);*/
         } catch (IOException e) {
             // Handle exception
             throw new IOException("Erreur dans l'écriture du fichier", e);
