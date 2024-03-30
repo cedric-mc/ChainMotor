@@ -126,6 +126,7 @@ suivante :
 ```shell
 mvn javadoc:javadoc
 ```
+ou passer par un IDE pour générer la JavaDoc (IntelliJ IDEA, Eclipse, etc.).
 
 Des documents complémentaire tel que le sujet et les consignes du projet sont disponibles dans le dossier `res` à la
 racine du projet.
